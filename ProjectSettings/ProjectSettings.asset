@@ -453,7 +453,7 @@ PlayerSettings:
   XboxOnePersistentLocalStorageSize: 0
   vrEditorSettings: {}
   cloudServicesEnabled:
-    Collab: 1
+    Collab: 0
     UNet: 1
   cloudProjectId: 33c2e2f8-f773-4611-a929-7fbad3de6b77
   projectName: BPM
