@@ -21,13 +21,14 @@ public class Army : MonoBehaviour
 
     ////     UNIT LISTS     ////
     List<Unit> armyUnits;
-    List<Unit> selectedUnits;
+    public List<Unit> selectedUnits;
 
 	// Use this for initialization
 	void Start ()
     {
         // Get any units in the children of this Army object
         armyUnits = new List<Unit>(GetComponentsInChildren<Unit>());
+        selectedUnits = new List<Unit>();
 
         // Spawn any additional units here
         // eg...
@@ -36,24 +37,13 @@ public class Army : MonoBehaviour
         //
         //    armyUnits.Add(newUnit);
 
-	}
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
 		
 	}
-
-    // TODO: Decide on what kind of selection we want to use (a cube, a square
-    // mapped to the angle of the camera, something else?)
-    //
-    // Select a group of units based on a selection area
-    public void SelectUnits()
-    {
-        selectedUnits.Clear();
-
-        // selectedUnits = new set of units
-    }
 
     // Tell the selected units to move to a specific location
     public void MoveCommand(Transform moveTo)

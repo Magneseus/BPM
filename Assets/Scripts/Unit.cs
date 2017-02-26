@@ -15,8 +15,11 @@ public class Unit : MonoBehaviour
     // eg.  SphereCollider unitSphere; <--------------------- HERE
     //      unitSphere = GetComponent<SphereCollider>(); <--- START()
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+
+    public GameObject SelectionCircle;
+
+    void Start ()
     {
 
 	}
