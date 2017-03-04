@@ -18,10 +18,21 @@ public class Unit : MonoBehaviour
     public int TeamNumber;
     public GameObject SelectionCircle;
 
+
+    ////        SCRIPT TYPES        ////
+    private Attack attackScript;
+    private Move moveScript;
+
+    //private ... ...Script;
+
     // Use this for initialization
     void Start ()
     {
+        //get all scripts that are available
+        attackScript = GetComponent<Attack>();
+        moveScript = GetComponent<Move>();
 
+        //... = GetComponent<...>();
 	}
 	
 	// Update is called once per frame
@@ -31,10 +42,40 @@ public class Unit : MonoBehaviour
 	}
 
     // Tell the unit to move to a specific location
-    // TO BE OVERRIDDEN IN THE GIVEN UNIT
-    public virtual bool MoveCommand(Transform moveTo) { return false; }
+    public bool MoveCommand(Transform moveTo)
+    {
+        // If we don't have a move script then return false
+        if (moveScript == null)
+            return false;
+
+        // Otherwise try and move
+        //moveScript.
+
+        return false;
+    }
 
     // Give this unit a command (eg. "attack", "ability1", etc)
-    // TO BE OVERRIDDEN IN THE GIVEN UNIT
-    public virtual bool GiveCommand(string commandName) { return false; }
+    // Need to also give it either a game object OR a transform for the command
+    public bool GiveCommand(string commandName, GameObject go, Transform trans)
+    {
+        // If given neither GameObject or Transform, return false
+        if (go == null && trans == null)
+            return false;
+
+        switch (commandName)
+        {
+            // Attack needs a GameObject
+            case "attack":
+                if (attackScript != null && gameObject != null)
+                    //attackScript.
+                    return true;
+                else
+                    return false;
+            //case "coolability1":
+            //    
+            //    break;
+        }
+
+        return false;
+    }
 }

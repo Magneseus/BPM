@@ -99,14 +99,19 @@ public class Army : MonoBehaviour
     }
 
     // Give the selected units a specific command
-    public bool GiveCommand(string command)
+    // Need to also give it either a game object OR a transform for the command
+    public bool GiveCommand(string command, GameObject go, Transform trans)
     {
+        // If we were given no game object or transform, return false
+        if (go == null && trans == null)
+            return false;
+
         // Only return false if all units fail to act
         bool returnVal = false;
 
         foreach (Unit u in selectedUnits)
         {
-            if (u.GiveCommand(command))
+            if (u.GiveCommand(command, go, trans))
                 returnVal = true;
         }
 
