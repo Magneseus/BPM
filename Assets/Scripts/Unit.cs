@@ -15,10 +15,10 @@ public class Unit : MonoBehaviour
     // eg.  SphereCollider unitSphere; <--------------------- HERE
     //      unitSphere = GetComponent<SphereCollider>(); <--- START()
 
-    // Use this for initialization
-
+    public int TeamNumber;
     public GameObject SelectionCircle;
 
+    // Use this for initialization
     void Start ()
     {
 
@@ -32,9 +32,9 @@ public class Unit : MonoBehaviour
 
     // Tell the unit to move to a specific location
     // TO BE OVERRIDDEN IN THE GIVEN UNIT
-    public virtual void MoveCommand(Transform moveTo) {}
+    public virtual bool MoveCommand(Transform moveTo) { return false; }
 
     // Give this unit a command (eg. "attack", "ability1", etc)
     // TO BE OVERRIDDEN IN THE GIVEN UNIT
-    public virtual void GiveCommand(string commandName) {}
+    public virtual bool GiveCommand(string commandName) { return false; }
 }
