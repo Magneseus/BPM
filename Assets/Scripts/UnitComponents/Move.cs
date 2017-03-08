@@ -32,6 +32,7 @@ public class Move : MonoBehaviour
         if (selfUnit != null)
         {
             TargetLocation = moveTo;
+            return true;
         }
 
         return false;
@@ -52,6 +53,12 @@ public class Move : MonoBehaviour
             // Calculate move vector and project onto the movement plane
             Vector3 dist = TargetLocation.position - this.transform.position;
             Vector3 moveDir = Vector3.ProjectOnPlane(dist, Vector3.up).normalized;
+
+            // End goal
+            if (dist.sqrMagnitude < GoalTolerance * GoalTolerance)
+            {
+                TargetLocation = null;
+            }
 
             // Get the current forward vector and project on the movement plane
             Vector3 curDir = Vector3.ProjectOnPlane(forwardDir, Vector3.up).normalized;
@@ -81,15 +88,9 @@ public class Move : MonoBehaviour
                 (newDir * Speed * Time.deltaTime);
 
 
+            // Set the new values
             this.transform.position = newPos;
             this.transform.rotation = newOrient;
-
-
-            // End goal
-            if (dist.sqrMagnitude < GoalTolerance * GoalTolerance)
-            {
-                TargetLocation = null;
-            }
         }
 	}
 }

@@ -16,6 +16,7 @@ public class Unit : MonoBehaviour
     //      unitSphere = GetComponent<SphereCollider>(); <--- START()
 
     public int TeamNumber;
+    public float Health;
     public GameObject SelectionCircle;
 
 
@@ -38,8 +39,13 @@ public class Unit : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-		
-	}
+        // TODO: Remove this and replace with proper death checking
+        if (Health <= 0.0f)
+        {
+            Destroy(this.gameObject);
+        }
+
+    }
 
     // Tell the unit to move to a specific location
     public bool MoveCommand(Transform moveTo)
@@ -49,9 +55,7 @@ public class Unit : MonoBehaviour
             return false;
 
         // Otherwise try and move
-        //moveScript.
-
-        return false;
+        return moveScript.MoveCommand(moveTo);
     }
 
     // Give this unit a command (eg. "attack", "ability1", etc)
@@ -67,8 +71,7 @@ public class Unit : MonoBehaviour
             // Attack needs a GameObject
             case "attack":
                 if (attackScript != null && gameObject != null)
-                    //attackScript.
-                    return true;
+                    return attackScript.AttackTarget(go);
                 else
                     return false;
             //case "coolability1":
@@ -77,5 +80,13 @@ public class Unit : MonoBehaviour
         }
 
         return false;
+    }
+
+    // Deals damage to a Unit
+    public void DoDamage(float damageDealt)
+    {
+        Health = Mathf.Max(0.0f, Health - damageDealt);
+
+        // TODO: Check for death and proceed accordingly?
     }
 }
