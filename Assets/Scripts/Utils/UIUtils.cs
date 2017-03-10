@@ -5,7 +5,19 @@ namespace Assets.Scripts.Utils
     public static class UIUtils {
 
         static Texture2D _whiteTexture;
-        
+        private static float cameraSpeed = 0.75f;
+        private static int scrollRectangleSize = 25;
+        public static Rect ScreenRecDown = new Rect(0, 0, Screen.width, scrollRectangleSize);
+        public static Rect ScreenRecUp = new Rect(0, Screen.height - scrollRectangleSize, Screen.width, scrollRectangleSize);
+        public static Rect ScreenRecLeft = new Rect(0, 0, scrollRectangleSize, Screen.height);
+        public static Rect ScreenRecRight = new Rect(Screen.width - scrollRectangleSize, 0, scrollRectangleSize, Screen.height);
+
+        public enum CommandType
+        {
+            Move,
+            Attack
+        }
+
         public static Texture2D WhiteTexture
         {
             get
@@ -64,6 +76,29 @@ namespace Assets.Scripts.Utils
             var bounds = new Bounds();
             bounds.SetMinMax(min, max);
             return bounds;
+        }
+
+        public static void ScrollCamera(Transform cameraTransform)
+        {
+            if (ScreenRecDown.Contains(Input.mousePosition))
+                cameraTransform.Translate(0, 0, -cameraSpeed, Space.World);
+
+            if (ScreenRecUp.Contains(Input.mousePosition))
+                cameraTransform.Translate(0, 0, cameraSpeed, Space.World);
+
+            if (ScreenRecLeft.Contains(Input.mousePosition))
+                cameraTransform.Translate(-cameraSpeed, 0, 0, Space.World);
+
+            if (ScreenRecRight.Contains(Input.mousePosition))
+                cameraTransform.Translate(cameraSpeed, 0, 0, Space.World);
+        }
+
+        public static void UpdatePlayerCommand(CommandType command)
+        {
+            if (Input.GetKeyDown(KeyCode.A))
+                command = CommandType.Attack;
+            if (Input.GetKeyDown(KeyCode.M))
+                command = CommandType.Move;
         }
     }
 }

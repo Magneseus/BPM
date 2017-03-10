@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Assets.Scripts.Utils;
 using UnityEngine;
@@ -16,9 +18,15 @@ public class Controller : MonoBehaviour
     private bool isSelecting;
     public GameObject SelectionCirclePrefab;
 
+    public UIUtils.CommandType CurrentCommand;
+
+    public Sprite RegularCursorSprite;
+    public Sprite AttackCursorSprite;
+
     // Use this for initialization
     void Start ()
     {
+        Cursor.lockState = CursorLockMode.Confined;
         isSelecting = false;
         playerArmy = gameObject.AddComponent<Army>();
     }
@@ -26,6 +34,7 @@ public class Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        #region Unit Selection
         // If we press the left mouse button, begin selection and remember the location of the mouse
         if (Input.GetMouseButtonDown(0))
         {
@@ -67,9 +76,13 @@ public class Controller : MonoBehaviour
         {
             foreach (var selectableObject in FindObjectsOfType<Unit>())
             {
+                var renderer = selectableObject.gameObject.GetComponent<Renderer>();
                 // Select the ones that are in the box, and unselect all others
                 if (playerArmy.selectedUnits.Contains(selectableObject))
                 {
+                    // Just change the color for now
+                    renderer.material.SetColor("_Color", Color.magenta);
+
                     if (selectableObject.SelectionCircle == null)
                     {
                         selectableObject.SelectionCircle = Instantiate(SelectionCirclePrefab);
@@ -79,6 +92,7 @@ public class Controller : MonoBehaviour
                 }
                 else
                 {
+                    renderer.material.SetColor("_Color", Color.white);
                     if (selectableObject.SelectionCircle != null)
                     {
                         Destroy(selectableObject.SelectionCircle.gameObject);
@@ -86,6 +100,39 @@ public class Controller : MonoBehaviour
                     }
                 }
             }
+        }
+        #endregion
+
+        UIUtils.ScrollCamera(transform);
+        UIUtils.UpdatePlayerCommand(CurrentCommand);
+
+        #region Mouse Commands
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (playerArmy.selectedUnits.Any())
+            {
+                switch (CurrentCommand)
+                {
+                    case UIUtils.CommandType.Move:
+                        // Move units here
+                        break;
+                    case UIUtils.CommandType.Attack:
+                        // Make units attack to location
+                        break;
+                }
+            }
+            // Switch the command back to move after
+            CurrentCommand = UIUtils.CommandType.Move;
+        }
+        #endregion
+
+        // Temp thing to unlock cursor
+        if (Input.GetKeyDown(KeyCode.LeftAlt))
+        {
+            if (Cursor.lockState == CursorLockMode.Confined)
+                Cursor.lockState = CursorLockMode.None;
+            else
+                Cursor.lockState = CursorLockMode.Confined;
         }
     }
 
@@ -108,5 +155,13 @@ public class Controller : MonoBehaviour
         var camera = Camera.main;
         var viewportBounds = UIUtils.GetViewportBounds(camera, MouseOver, Input.mousePosition);
         return viewportBounds.Contains(camera.WorldToViewportPoint(gameObject.transform.position));
+    }
+
+    public void SetMouseCommand(string command)
+    {
+        UIUtils.CommandType currentCommand = (UIUtils.CommandType)Enum.Parse(typeof(UIUtils.CommandType), command);
+
+        CurrentCommand = currentCommand;
+        Debug.Log("command set to " + CurrentCommand);
     }
 }

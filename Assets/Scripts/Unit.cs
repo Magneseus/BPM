@@ -18,6 +18,7 @@ public class Unit : MonoBehaviour
     // Use this for initialization
 
     public GameObject SelectionCircle;
+    public float MovementSpeed;
 
     void Start ()
     {
