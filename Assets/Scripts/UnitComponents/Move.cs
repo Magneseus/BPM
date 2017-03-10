@@ -10,9 +10,9 @@ public class Move : MonoBehaviour
 
     public float Speed;
     public float TurnSpeed;
-    public float GoalTolerance;
+    public float GoalTolerance = 0.1f;
 
-    public Vector3 TargetLocation;
+    public Vector3 TargetLocation = new Vector3(float.MaxValue, 0, 0);
 
 
     // Use this for initialization
@@ -37,9 +37,7 @@ public class Move : MonoBehaviour
         // If we are a Unit
         if (selfUnit != null)
         {
-            // TODO: Make movement a non-2d operation
-            TargetLocation = 
-                new Vector3(moveTo.x, this.transform.position.y, moveTo.z);
+            TargetLocation = moveTo;
             return true;
         }
 
@@ -60,6 +58,10 @@ public class Move : MonoBehaviour
 
             // Calculate move vector and project onto the movement plane
             Vector3 dist = TargetLocation - this.transform.position;
+
+            // TODO: Make movement a non-2d operation
+            dist.y = 0.0f;
+
             Vector3 moveDir = Vector3.ProjectOnPlane(dist, Vector3.up).normalized;
 
             // Get the current forward vector and project on the movement plane

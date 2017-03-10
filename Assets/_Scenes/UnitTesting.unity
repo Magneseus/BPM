@@ -142,6 +142,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SelectionCirclePrefab: {fileID: 166266, guid: 76dcbc06f5bc7dd4ea9aeaf5b3759686,
     type: 2}
+  CurrentCommand: 0
+  RegularCursorSprite: {fileID: 0}
+  AttackCursorSprite: {fileID: 0}
 --- !u!4 &64617750
 Transform:
   m_ObjectHideFlags: 0
@@ -303,8 +306,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 1
   TurnSpeed: 45
-  GoalTolerance: 0.5
-  TargetLocation: {fileID: 0}
+  GoalTolerance: 0.1
+  TargetLocation: {x: 3.4028235e+38, y: 0, z: 0}
 --- !u!114 &394927197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -527,8 +530,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 1
   TurnSpeed: 45
-  GoalTolerance: 0.5
-  TargetLocation: {fileID: 0}
+  GoalTolerance: 0.1
+  TargetLocation: {x: 3.4028235e+38, y: 0, z: 0}
 --- !u!114 &903210550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -903,6 +906,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SelectionCirclePrefab: {fileID: 166266, guid: 76dcbc06f5bc7dd4ea9aeaf5b3759686,
     type: 2}
+  CurrentCommand: 0
+  RegularCursorSprite: {fileID: 0}
+  AttackCursorSprite: {fileID: 0}
 --- !u!1 &1709805141
 GameObject:
   m_ObjectHideFlags: 0
