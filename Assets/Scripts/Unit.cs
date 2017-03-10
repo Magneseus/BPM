@@ -18,6 +18,7 @@ public class Unit : MonoBehaviour
 
     public int TeamNumber;
     public float Health;
+    private float MaxHealth;
     public GameObject SelectionCircle;
 
 
@@ -33,6 +34,9 @@ public class Unit : MonoBehaviour
         //get all scripts that are available
         attackScript = GetComponent<Attack>();
         moveScript = GetComponent<Move>();
+
+        // Get the current health as the max health
+        MaxHealth = Health;
 
         //... = GetComponent<...>();
 	}
@@ -90,4 +94,11 @@ public class Unit : MonoBehaviour
 
         // TODO: Check for death and proceed accordingly?
     }
+
+    // Heals a unit
+    public void DoHeal(float healDealt)
+    {
+        Health = Mathf.Min(MaxHealth, Health + healDealt);
+    }
+
 }
