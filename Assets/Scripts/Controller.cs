@@ -118,9 +118,18 @@ public class Controller : MonoBehaviour
                     case UIUtils.CommandType.Move:
                         if (Physics.Raycast(ray, out hit))
                         {
+                            Debug.Log("hit " + hit.transform.gameObject.tag);
+                            var hitGameObject = hit.transform.gameObject;
                             var newTransform = hit.point;
                             foreach (var unit in playerArmy.selectedUnits)
+                            {
                                 unit.MoveCommand(newTransform);
+                                
+                                if (hitGameObject.tag == "Bunker")
+                                    unit.CurrentAction = Unit.UnitSpecialAction.MoveToBunker;
+                                else
+                                    unit.CurrentAction = Unit.UnitSpecialAction.None;
+                            }
                         }
                         break;
                     case UIUtils.CommandType.Attack:

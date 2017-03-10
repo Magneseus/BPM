@@ -20,13 +20,19 @@ public class Unit : MonoBehaviour
     public float Health;
     private float MaxHealth;
     public GameObject SelectionCircle;
-
+    public UnitSpecialAction CurrentAction;
 
     ////        SCRIPT TYPES        ////
     private Attack attackScript;
     private Move moveScript;
 
     //private ... ...Script;
+
+    public enum UnitSpecialAction
+    {
+        None,
+        MoveToBunker
+    }
 
     // Use this for initialization
     void Start ()

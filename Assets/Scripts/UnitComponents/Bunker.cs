@@ -27,7 +27,9 @@ public class Bunker : MonoBehaviour
         {
             selfTeam = selfUnit.TeamNumber;
         }
-	}
+
+	    gameObject.tag = "Bunker";
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -123,6 +125,25 @@ public class Bunker : MonoBehaviour
             attackComponent.Damage = originalAttack.Damage * DamageMultiplier;
             attackComponent.Range = originalAttack.Range * RangeMultiplier;
             attackComponent.RateOfFire = originalAttack.RateOfFire * RoFMultiplier;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        // If the entering collider is a Unit
+        Unit u = other.GetComponent<Unit>();
+        if (u != null)
+        {
+            // If we're on the same team
+            if (u.TeamNumber == this.selfTeam)
+            {
+                // Add to our list of units
+                if (u.GetType() == typeof (Unit) && u.CurrentAction == Unit.UnitSpecialAction.MoveToBunker)
+                {
+                    u.CurrentAction = Unit.UnitSpecialAction.None;
+                    AddGarrisonUnit(u.gameObject);
+                }
+            }
         }
     }
 }
