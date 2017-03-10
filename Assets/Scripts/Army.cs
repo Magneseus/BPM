@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Utils;
 using UnityEngine;
 
 /**
@@ -100,7 +101,7 @@ public class Army : MonoBehaviour
 
     // Give the selected units a specific command
     // Need to also give it either a game object OR a transform for the command
-    public bool GiveCommand(string command, GameObject go, Transform trans)
+    public bool GiveCommand(UIUtils.CommandType command, GameObject go, Transform trans)
     {
         // If we were given no game object or transform, return false
         if (go == null && trans == null)

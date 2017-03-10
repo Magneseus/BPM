@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Utils;
 using UnityEngine;
 
 /**
@@ -18,7 +19,6 @@ public class Unit : MonoBehaviour
     public int TeamNumber;
     public float Health;
     public GameObject SelectionCircle;
-    public float MovementSpeed;
 
 
     ////        SCRIPT TYPES        ////
@@ -61,16 +61,16 @@ public class Unit : MonoBehaviour
 
     // Give this unit a command (eg. "attack", "ability1", etc)
     // Need to also give it either a game object OR a transform for the command
-    public bool GiveCommand(string commandName, GameObject go, Transform trans)
+    public bool GiveCommand(UIUtils.CommandType command, GameObject go, Transform trans)
     {
         // If given neither GameObject or Transform, return false
         if (go == null && trans == null)
             return false;
 
-        switch (commandName)
+        switch (command)
         {
             // Attack needs a GameObject
-            case "attack":
+            case UIUtils.CommandType.Attack:
                 if (attackScript != null && gameObject != null)
                     return attackScript.AttackTarget(go);
                 else

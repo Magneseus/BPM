@@ -111,13 +111,21 @@ public class Controller : MonoBehaviour
         {
             if (playerArmy.selectedUnits.Any())
             {
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 switch (CurrentCommand)
                 {
                     case UIUtils.CommandType.Move:
-                        // Move units here
+                        if (Physics.Raycast(ray, out hit))
+                        {
+                            var newTransform = new GameObject().transform;
+                            newTransform.position = hit.point;
+                            foreach (var unit in playerArmy.selectedUnits)
+                                unit.MoveCommand(newTransform);
+                        }
                         break;
                     case UIUtils.CommandType.Attack:
-                        // Make units attack to location
+
                         break;
                 }
             }
