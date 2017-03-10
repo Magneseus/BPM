@@ -427,9 +427,8 @@ GameObject:
   - component: {fileID: 479015425}
   - component: {fileID: 479015424}
   - component: {fileID: 479015422}
-  - component: {fileID: 479015426}
   - component: {fileID: 479015423}
-  - component: {fileID: 479015427}
+  - component: {fileID: 479015428}
   m_Layer: 0
   m_Name: Bunker
   m_TagString: Untagged
@@ -502,19 +501,7 @@ Transform:
   m_Father: {fileID: 274536264}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &479015426
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 479015421}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &479015427
+--- !u!114 &479015428
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -522,14 +509,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 479015421}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c877d92a40500f34fab3ecc3b1da550c, type: 3}
+  m_Script: {fileID: 11500000, guid: 6428d16fdc31cc041a5c8c471caa32fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 0}
-  Range: 10
-  Damage: 8
-  RateOfFire: 2
-  DoChaseTarget: 1
+  Range: 1
+  DamageMultiplier: 1.5
+  RangeMultiplier: 2
+  RoFMultiplier: 1
 --- !u!1 &903210548
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,6 +647,7 @@ GameObject:
   - component: {fileID: 970794152}
   - component: {fileID: 970794154}
   - component: {fileID: 970794151}
+  - component: {fileID: 970794155}
   m_Layer: 0
   m_Name: Infantry
   m_TagString: Untagged
@@ -792,6 +779,18 @@ MonoBehaviour:
   Damage: 1
   RateOfFire: 1
   DoChaseTarget: 1
+--- !u!114 &970794155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 970794146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85903f9737e5302418717b50fe7e82d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tmp: {fileID: 479015421}
 --- !u!1 &992699374
 GameObject:
   m_ObjectHideFlags: 0
