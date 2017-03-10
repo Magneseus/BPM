@@ -9,7 +9,6 @@ public class HealTower : MonoBehaviour
 
     private Unit selfUnit;
     private int selfTeam;
-    private SphereCollider healArea;
     private List<Unit> unitsInArea;
     private float healTimer;
 
@@ -21,8 +20,6 @@ public class HealTower : MonoBehaviour
         {
             selfTeam = selfUnit.TeamNumber;
         }
-
-        healArea = this.GetComponent<SphereCollider>();
 
         unitsInArea = new List<Unit>();
 	}
