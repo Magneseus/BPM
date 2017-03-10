@@ -63,6 +63,16 @@ public class Unit : MonoBehaviour
         return moveScript.MoveCommand(moveTo);
     }
 
+    public bool MoveCommand(Vector3 moveTo)
+    {
+        // If we don't have a move script then return false
+        if (moveScript == null)
+            return false;
+
+        // Otherwise try and move
+        return moveScript.MoveCommand(moveTo);
+    }
+
     // Give this unit a command (eg. "attack", "ability1", etc)
     // Need to also give it either a game object OR a transform for the command
     public bool GiveCommand(UIUtils.CommandType command, GameObject go, Transform trans)

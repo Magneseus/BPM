@@ -118,8 +118,7 @@ public class Controller : MonoBehaviour
                     case UIUtils.CommandType.Move:
                         if (Physics.Raycast(ray, out hit))
                         {
-                            var newTransform = new GameObject().transform;
-                            newTransform.position = hit.point;
+                            var newTransform = hit.point;
                             foreach (var unit in playerArmy.selectedUnits)
                                 unit.MoveCommand(newTransform);
                         }
