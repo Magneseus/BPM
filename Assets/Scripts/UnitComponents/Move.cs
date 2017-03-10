@@ -44,6 +44,12 @@ public class Move : MonoBehaviour
         return false;
     }
 
+    // Stops the movement and removes target
+    public void Stop()
+    {
+        TargetLocation = new Vector3(float.MaxValue, 0, 0);
+    }
+
     // Update is called once per frame
     void FixedUpdate ()
     {

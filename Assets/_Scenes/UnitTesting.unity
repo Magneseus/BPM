@@ -284,8 +284,9 @@ GameObject:
   - component: {fileID: 394927199}
   - component: {fileID: 394927202}
   - component: {fileID: 394927198}
-  - component: {fileID: 394927197}
   - component: {fileID: 394927196}
+  - component: {fileID: 394927197}
+  - component: {fileID: 394927203}
   m_Layer: 0
   m_Name: Avatar
   m_TagString: Untagged
@@ -304,7 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edef852cf9dfa5d428a41c015e1919d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 1
+  Speed: 0.75
   TurnSpeed: 45
   GoalTolerance: 0.1
   TargetLocation: {x: 3.4028235e+38, y: 0, z: 0}
@@ -319,11 +320,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c877d92a40500f34fab3ecc3b1da550c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 0}
-  Range: 2
+  Target: {fileID: 903210548}
+  Range: 5
   Damage: 2
   RateOfFire: 1
-  DoChaseTarget: 1
+  DoChaseTarget: 0
 --- !u!114 &394927198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -401,6 +402,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &394927203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 394927195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a30787b84b651a4fbf87d94a65aabd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DeployTime: 1
+  DamageMultiplier: 1.5
+  RangeMultiplier: 2
+  RoFMultiplier: 1
 --- !u!1 &479015421
 GameObject:
   m_ObjectHideFlags: 0
@@ -506,13 +522,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 479015421}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edef852cf9dfa5d428a41c015e1919d9, type: 3}
+  m_Script: {fileID: 11500000, guid: c877d92a40500f34fab3ecc3b1da550c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 0
-  TurnSpeed: 0
-  GoalTolerance: 0.1
-  TargetLocation: {x: 3.4028235e+38, y: 0, z: 0}
+  Target: {fileID: 0}
+  Range: 10
+  Damage: 8
+  RateOfFire: 2
+  DoChaseTarget: 1
 --- !u!1 &903210548
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,8 +655,12 @@ GameObject:
   m_Component:
   - component: {fileID: 970794150}
   - component: {fileID: 970794149}
-  - component: {fileID: 970794148}
   - component: {fileID: 970794147}
+  - component: {fileID: 970794148}
+  - component: {fileID: 970794153}
+  - component: {fileID: 970794152}
+  - component: {fileID: 970794154}
+  - component: {fileID: 970794151}
   m_Layer: 0
   m_Name: Infantry
   m_TagString: Untagged
@@ -711,6 +732,66 @@ Transform:
   m_Father: {fileID: 274536264}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &970794151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 970794146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc86e9855ccb1cd4cba606146a3c8357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpeedMultiplier: 1.5
+  TurnSpeedMultiplier: 0.75
+  Length: 1
+  Cooldown: 5
+--- !u!114 &970794152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 970794146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edef852cf9dfa5d428a41c015e1919d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 1.5
+  TurnSpeed: 180
+  GoalTolerance: 0.1
+  TargetLocation: {x: 3.4028235e+38, y: 0, z: 0}
+--- !u!114 &970794153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 970794146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25f40dd3e80e3747a350355cab7f600, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TeamNumber: 0
+  Health: 10
+  SelectionCircle: {fileID: 0}
+--- !u!114 &970794154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 970794146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c877d92a40500f34fab3ecc3b1da550c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 0}
+  Range: 5
+  Damage: 1
+  RateOfFire: 1
+  DoChaseTarget: 1
 --- !u!1 &992699374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1015,6 +1096,10 @@ GameObject:
   - component: {fileID: 1963302477}
   - component: {fileID: 1963302476}
   - component: {fileID: 1963302475}
+  - component: {fileID: 1963302482}
+  - component: {fileID: 1963302481}
+  - component: {fileID: 1963302480}
+  - component: {fileID: 1963302479}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Untagged
@@ -1085,3 +1170,63 @@ Transform:
   m_Father: {fileID: 274536264}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1963302479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1963302474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a30787b84b651a4fbf87d94a65aabd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DeployTime: 1
+  DamageMultiplier: 1.5
+  RangeMultiplier: 2
+  RoFMultiplier: 1
+--- !u!114 &1963302480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1963302474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c877d92a40500f34fab3ecc3b1da550c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 0}
+  Range: 10
+  Damage: 8
+  RateOfFire: 2
+  DoChaseTarget: 1
+--- !u!114 &1963302481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1963302474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edef852cf9dfa5d428a41c015e1919d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 1
+  TurnSpeed: 90
+  GoalTolerance: 0.1
+  TargetLocation: {x: 3.4028235e+38, y: 0, z: 0}
+--- !u!114 &1963302482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1963302474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25f40dd3e80e3747a350355cab7f600, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TeamNumber: 0
+  Health: 10
+  SelectionCircle: {fileID: 0}

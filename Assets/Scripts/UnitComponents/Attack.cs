@@ -107,6 +107,7 @@ public class Attack : MonoBehaviour
         CR_Running = false;
     }
 
+    // Stops attacking and removes target
     public void Stop()
     {
         // Stop the attack Coroutine
