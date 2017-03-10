@@ -15,27 +15,79 @@ public class Unit : MonoBehaviour
     // eg.  SphereCollider unitSphere; <--------------------- HERE
     //      unitSphere = GetComponent<SphereCollider>(); <--- START()
 
-    // Use this for initialization
-
+    public int TeamNumber;
+    public float Health;
     public GameObject SelectionCircle;
     public float MovementSpeed;
 
+
+    ////        SCRIPT TYPES        ////
+    private Attack attackScript;
+    private Move moveScript;
+
+    //private ... ...Script;
+
+    // Use this for initialization
     void Start ()
     {
+        //get all scripts that are available
+        attackScript = GetComponent<Attack>();
+        moveScript = GetComponent<Move>();
 
+        //... = GetComponent<...>();
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-		
-	}
+        // TODO: Remove this and replace with proper death checking
+        if (Health <= 0.0f)
+        {
+            Destroy(this.gameObject);
+        }
+
+    }
 
     // Tell the unit to move to a specific location
-    // TO BE OVERRIDDEN IN THE GIVEN UNIT
-    public virtual void MoveCommand(Transform moveTo) {}
+    public bool MoveCommand(Transform moveTo)
+    {
+        // If we don't have a move script then return false
+        if (moveScript == null)
+            return false;
+
+        // Otherwise try and move
+        return moveScript.MoveCommand(moveTo);
+    }
 
     // Give this unit a command (eg. "attack", "ability1", etc)
-    // TO BE OVERRIDDEN IN THE GIVEN UNIT
-    public virtual void GiveCommand(string commandName) {}
+    // Need to also give it either a game object OR a transform for the command
+    public bool GiveCommand(string commandName, GameObject go, Transform trans)
+    {
+        // If given neither GameObject or Transform, return false
+        if (go == null && trans == null)
+            return false;
+
+        switch (commandName)
+        {
+            // Attack needs a GameObject
+            case "attack":
+                if (attackScript != null && gameObject != null)
+                    return attackScript.AttackTarget(go);
+                else
+                    return false;
+            //case "coolability1":
+            //    
+            //    break;
+        }
+
+        return false;
+    }
+
+    // Deals damage to a Unit
+    public void DoDamage(float damageDealt)
+    {
+        Health = Mathf.Max(0.0f, Health - damageDealt);
+
+        // TODO: Check for death and proceed accordingly?
+    }
 }
