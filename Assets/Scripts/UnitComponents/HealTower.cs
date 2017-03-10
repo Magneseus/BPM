@@ -48,8 +48,6 @@ public class HealTower : MonoBehaviour
     // Add units if they enter the heal area and are friendly
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.name);
-
         // If the entering collider is a Unit
         Unit u = other.GetComponent<Unit>();
         if (u != null)
