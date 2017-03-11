@@ -87,7 +87,8 @@ public class Controller : MonoBehaviour
                     if (playerArmy.selectedUnits.Contains(selectableObject))
                     {
                         // Just change the color for now
-                        renderer.material.SetColor("_Color", Color.magenta);
+                        if (renderer != null)
+                            renderer.material.SetColor("_Color", Color.magenta);
 
                         if (selectableObject.SelectionCircle == null)
                         {
@@ -98,7 +99,8 @@ public class Controller : MonoBehaviour
                     }
                     else
                     {
-                        renderer.material.SetColor("_Color", Color.white);
+                        if (renderer != null)
+                            renderer.material.SetColor("_Color", Color.white);
                         if (selectableObject.SelectionCircle != null)
                         {
                             Destroy(selectableObject.SelectionCircle.gameObject);
