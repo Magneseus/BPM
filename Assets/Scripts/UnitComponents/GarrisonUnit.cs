@@ -12,8 +12,6 @@ public class GarrisonUnit : MonoBehaviour
 
     private IEnumerator runToBunkerCoroutine;
 
-    public GameObject tmp;
-
 	// Use this for initialization
 	void Start ()
     {
