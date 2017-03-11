@@ -33,6 +33,7 @@ public class Controller : MonoBehaviour
         playerArmy = gameObject.AddComponent<Army>();
 
         UIUtils.SetUnloadButtonVisiblity(false);
+        UIUtils.SetDeployButtonVisibility(false);
     }
 
     // Update is called once per frame
@@ -178,6 +179,16 @@ public class Controller : MonoBehaviour
             UIUtils.SetUnloadButtonVisiblity(false);
         }
 
+        var selectedAvatar = playerArmy.selectedUnits.FirstOrDefault(u => u.tag == "Avatar");
+
+        if (selectedAvatar != null)
+        {
+            var avatar = selectedAvatar.GetComponent<VehicleDeploy>();
+            UIUtils.SetDeployButtonVisibility(true, avatar.IsDeployed());
+        }
+        else
+            UIUtils.SetDeployButtonVisibility(false);
+
         // Temp thing to unlock cursor
         if (Input.GetKeyDown(KeyCode.LeftAlt))
         {
@@ -224,6 +235,16 @@ public class Controller : MonoBehaviour
         {
             var bunker = selectedBunker.GetComponent<Bunker>();
             bunker.RemoveGarrison();
+        }
+    }
+
+    public void DeployAvatar()
+    {
+        var selectedAvatar = playerArmy.selectedUnits.FirstOrDefault(u => u.tag == "Avatar");
+        if (selectedAvatar != null)
+        {
+            var avatar = selectedAvatar.GetComponent<VehicleDeploy>();
+            avatar.ToggleDeploy();
         }
     }
 }

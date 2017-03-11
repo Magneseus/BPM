@@ -14,6 +14,7 @@ namespace Assets.Scripts.Utils
         public static Rect ScreenRecRight = new Rect(Screen.width - scrollRectangleSize, 0, scrollRectangleSize, Screen.height);
 
         private static Button UnloadButton = GameObject.Find("UnloadButton").GetComponent<Button>();
+        private static Button DeployButton = GameObject.Find("DeployButton").GetComponent<Button>();
 
         public enum CommandType
         {
@@ -108,6 +109,20 @@ namespace Assets.Scripts.Utils
         public static void SetUnloadButtonVisiblity(bool isVisible)
         {
             UnloadButton.gameObject.SetActive(isVisible);
+        }
+
+        public static void SetDeployButtonVisibility(bool isVisible, bool isDeployed = false)
+        {
+            DeployButton.gameObject.SetActive(isVisible);
+            var buttonText = DeployButton.GetComponentInChildren<Text>();
+            if (isVisible)
+            {
+                if (isDeployed)
+                    buttonText.text = "Undeploy";
+                else
+                    buttonText.text = "Deploy";
+            }
+                
         }
     }
 }
