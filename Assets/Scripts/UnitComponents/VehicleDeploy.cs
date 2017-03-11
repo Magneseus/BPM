@@ -44,7 +44,7 @@ public class VehicleDeploy : MonoBehaviour
         // Default to undeployed
         deployed = false;
         deployTimer = 0.0f;
-	    gameObject.tag = "Avatar";
+	    gameObject.tag = "VehicleDeploy";
     }
 	
 	// Update is called once per frame

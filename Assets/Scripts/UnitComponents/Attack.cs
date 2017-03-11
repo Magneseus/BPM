@@ -111,7 +111,8 @@ public class Attack : MonoBehaviour
     public void Stop()
     {
         // Stop the attack Coroutine
-        StopCoroutine(attackCoroutine);
+        if (attackCoroutine != null)
+            StopCoroutine(attackCoroutine);
         CR_Running = false;
 
         // Stop attacking the target

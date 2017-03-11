@@ -179,15 +179,17 @@ public class Controller : MonoBehaviour
             UIUtils.SetUnloadButtonVisiblity(false);
         }
 
-        var selectedAvatar = playerArmy.selectedUnits.FirstOrDefault(u => u.tag == "Avatar");
-
-        if (selectedAvatar != null)
+        var deployableUnits = playerArmy.selectedUnits.Where(u => u.tag == "VehicleDeploy").ToList();
+        foreach (var unit in deployableUnits)
         {
-            var avatar = selectedAvatar.GetComponent<VehicleDeploy>();
-            UIUtils.SetDeployButtonVisibility(true, avatar.IsDeployed());
+            if (unit != null)
+            {
+                var deployable = unit.GetComponent<VehicleDeploy>();
+                UIUtils.SetDeployButtonVisibility(true, deployable.IsDeployed());
+            }
+            else
+                UIUtils.SetDeployButtonVisibility(false);
         }
-        else
-            UIUtils.SetDeployButtonVisibility(false);
 
         // Temp thing to unlock cursor
         if (Input.GetKeyDown(KeyCode.LeftAlt))
@@ -240,11 +242,14 @@ public class Controller : MonoBehaviour
 
     public void DeployAvatar()
     {
-        var selectedAvatar = playerArmy.selectedUnits.FirstOrDefault(u => u.tag == "Avatar");
-        if (selectedAvatar != null)
+        var deployableUnits = playerArmy.selectedUnits.Where(u => u.tag == "VehicleDeploy").ToList();
+        foreach (var unit in deployableUnits)
         {
-            var avatar = selectedAvatar.GetComponent<VehicleDeploy>();
-            avatar.ToggleDeploy();
+            if (unit != null)
+            {
+                var deployable = unit.GetComponent<VehicleDeploy>();
+                deployable.ToggleDeploy();
+            }
         }
     }
 }
