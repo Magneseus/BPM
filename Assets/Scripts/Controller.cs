@@ -90,22 +90,22 @@ public class Controller : MonoBehaviour
                         if (renderer != null)
                             renderer.material.SetColor("_Color", Color.magenta);
 
-                        if (selectableObject.SelectionCircle == null)
-                        {
-                            selectableObject.SelectionCircle = Instantiate(SelectionCirclePrefab);
-                            selectableObject.SelectionCircle.transform.SetParent(selectableObject.transform, false);
-                            selectableObject.SelectionCircle.transform.eulerAngles = new Vector3(90, 0, 0);
-                        }
+                        //if (selectableObject.SelectionCircle == null)
+                        //{
+                        //    selectableObject.SelectionCircle = Instantiate(SelectionCirclePrefab);
+                        //    selectableObject.SelectionCircle.transform.SetParent(selectableObject.transform, false);
+                        //    selectableObject.SelectionCircle.transform.eulerAngles = new Vector3(90, 0, 0);
+                        //}
                     }
                     else
                     {
                         if (renderer != null)
                             renderer.material.SetColor("_Color", Color.white);
-                        if (selectableObject.SelectionCircle != null)
-                        {
-                            Destroy(selectableObject.SelectionCircle.gameObject);
-                            selectableObject.SelectionCircle = null;
-                        }
+                        //if (selectableObject.SelectionCircle != null)
+                        //{
+                        //    Destroy(selectableObject.SelectionCircle.gameObject);
+                        //    selectableObject.SelectionCircle = null;
+                        //}
                     }
                 }
             }
