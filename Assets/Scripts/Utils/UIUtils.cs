@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Utils
 {
@@ -12,10 +13,13 @@ namespace Assets.Scripts.Utils
         public static Rect ScreenRecLeft = new Rect(0, 0, scrollRectangleSize, Screen.height);
         public static Rect ScreenRecRight = new Rect(Screen.width - scrollRectangleSize, 0, scrollRectangleSize, Screen.height);
 
+        private static Button UnloadButton = GameObject.Find("UnloadButton").GetComponent<Button>();
+
         public enum CommandType
         {
             Move,
-            Attack
+            Attack,
+            UnloadBunker
         }
 
         public static Texture2D WhiteTexture
@@ -99,6 +103,11 @@ namespace Assets.Scripts.Utils
                 command = CommandType.Attack;
             if (Input.GetKeyDown(KeyCode.M))
                 command = CommandType.Move;
+        }
+
+        public static void SetUnloadButtonVisiblity(bool isVisible)
+        {
+            UnloadButton.gameObject.SetActive(isVisible);
         }
     }
 }

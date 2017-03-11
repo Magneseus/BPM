@@ -42,8 +42,7 @@ public class GarrisonUnit : MonoBehaviour
         }
 
         // While we're still moving to the target location
-        while (moveScript.TargetLocation == targetBunker.transform.position &&
-            targetBunker != null)
+        while (targetBunker != null && moveScript.TargetLocation == targetBunker.transform.position)
         {
             // Check if we're in range
             if (Vector3.Distance(this.transform.position, 

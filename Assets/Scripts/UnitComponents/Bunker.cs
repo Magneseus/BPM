@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Bunker : MonoBehaviour
@@ -128,22 +129,8 @@ public class Bunker : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    public bool HasGarrisonedUnits()
     {
-        // If the entering collider is a Unit
-        Unit u = other.GetComponent<Unit>();
-        if (u != null)
-        {
-            // If we're on the same team
-            if (u.TeamNumber == this.selfTeam)
-            {
-                // Add to our list of units
-                if (u.GetType() == typeof (Unit) && u.CurrentAction == Unit.UnitSpecialAction.MoveToBunker)
-                {
-                    u.CurrentAction = Unit.UnitSpecialAction.None;
-                    AddGarrisonUnit(u.gameObject);
-                }
-            }
-        }
+        return garrisonUnits.Any();
     }
 }
