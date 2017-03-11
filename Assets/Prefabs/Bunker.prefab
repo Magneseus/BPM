@@ -459,7 +459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6428d16fdc31cc041a5c8c471caa32fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Range: 2
+  Range: 1.5
   DamageMultiplier: 1.5
   RangeMultiplier: 2
   RoFMultiplier: 1
