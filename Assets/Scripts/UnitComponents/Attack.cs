@@ -60,6 +60,14 @@ public class Attack : MonoBehaviour
         return false;
     }
 
+    // This method is called whenever the attack /actually/ happens
+    // As such it can be overridden by a class inheriting from Attack.
+    protected virtual void DealDamageToTarget(Unit _targetUnit)
+    {
+        // By default just do damage to the target
+        TargetUnit.DoDamage(Damage);
+    }
+
     IEnumerator AttackMove()
     {
         CR_Running = true;
@@ -90,10 +98,9 @@ public class Attack : MonoBehaviour
             ///////               ATTACK               ///////
             else
             {
-                // Deal damage to the unit
-                TargetUnit.DoDamage(Damage);
-
-                // TODO: Add firing animation here
+                // Deal damage to the unit (based on the Unit's interpretation
+                // of the DealDamageToTarget function)
+                DealDamageToTarget(TargetUnit);
             }
 
 
