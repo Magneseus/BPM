@@ -53,6 +53,9 @@ public class Unit : MonoBehaviour
         // TODO: Remove this and replace with proper death checking
         if (Health <= 0.0f)
         {
+            var exp = GetComponent<ParticleSystem>();
+            exp.transform.position = this.gameObject.transform.position;
+            exp.Play();
             Destroy(this.gameObject);
         }
 
