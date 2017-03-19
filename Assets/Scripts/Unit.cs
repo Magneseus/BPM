@@ -21,6 +21,7 @@ public class Unit : MonoBehaviour
     private float MaxHealth;
     public GameObject SelectionCircle;
     public UnitSpecialAction CurrentAction;
+    private bool hasExploded;
 
     ////        SCRIPT TYPES        ////
     private Attack attackScript;
@@ -53,10 +54,19 @@ public class Unit : MonoBehaviour
         // TODO: Remove this and replace with proper death checking
         if (Health <= 0.0f)
         {
-            var exp = GetComponent<ParticleSystem>();
-            exp.transform.position = this.gameObject.transform.position;
-            exp.Play();
-            Destroy(this.gameObject);
+            var ps = GetComponent<ParticleSystem>();
+            
+            if (!ps.isPlaying && !hasExploded)
+            {
+                var main = ps.main;
+                main.loop = false;
+                ps.Play();
+                hasExploded = true;
+                //GetComponent<Renderer>().enabled = false;
+            }
+
+            if (!ps.IsAlive())
+                Destroy(this.gameObject);
         }
 
     }
