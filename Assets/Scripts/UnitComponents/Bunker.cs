@@ -6,7 +6,8 @@ using UnityEngine;
 public class Bunker : MonoBehaviour
 {
     // TODO: Allow for more than one unit to be stored
-    public const int NumberOfSlots = 1;
+	public Animator BunkerAnimator;
+	public const int NumberOfSlots = 1;
     public float Range = 5.0f;
     public float DamageMultiplier = 1.5f;
     public float RangeMultiplier = 2.0f;

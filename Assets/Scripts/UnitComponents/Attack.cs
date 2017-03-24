@@ -8,6 +8,7 @@ public class Attack : MonoBehaviour
     private int selfTeam;
     private IEnumerator attackCoroutine;
     private bool CR_Running;
+	private Animator unitAnimator;
 
     public GameObject Target;
     private Unit TargetUnit;
@@ -21,8 +22,10 @@ public class Attack : MonoBehaviour
     void Start ()
     {
         selfUnit = this.GetComponent<Unit>();
+		unitAnimator = this.GetComponent<Animator> ();
         if (selfUnit != null)
             selfTeam = selfUnit.TeamNumber;
+
     }
 
     // Attacking a GameObject (must contain a Unit)
@@ -77,6 +80,9 @@ public class Attack : MonoBehaviour
             Vector3 dist = Target.transform.position - this.transform.position;
             if (dist.sqrMagnitude > Range * Range)
             {
+				// deactivate attack animation if active
+				unitAnimator.SetBool("Attacking", false);
+
                 // If we can't chase then cancel
                 if (!DoChaseTarget)
                     break;
@@ -93,7 +99,8 @@ public class Attack : MonoBehaviour
                 // Deal damage to the unit
                 TargetUnit.DoDamage(Damage);
 
-                // TODO: Add firing animation here
+                // trigger attack animation
+				unitAnimator.SetBool("Attacking", true);
             }
 
 
