@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 114362100600247010}
   - component: {fileID: 114208272224928466}
   - component: {fileID: 114218098067633356}
-  - component: {fileID: 95204276950730132}
+  - component: {fileID: 198888077728120506}
   - component: {fileID: 199867495249637036}
   m_Layer: 0
   m_Name: Avatar
@@ -109,11 +109,11 @@ Transform:
   m_GameObject: {fileID: 1711135865470938}
   m_LocalRotation: {x: -2.1648903e-17, y: -0.7071068, z: -2.1648903e-17, w: 0.7071068}
   m_LocalPosition: {x: -0.00014797211, y: 0.113674335, z: -0.1719603}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.66, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4328523261649408}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 115.66302}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4328523261649408
 Transform:
   m_ObjectHideFlags: 1
@@ -311,23 +311,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.49669552, y: 0.49251902, z: 0.7519056}
   m_Center: {x: 0.004938115, y: 0.2537405, z: -0.0016805411}
---- !u!95 &95204276950730132
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1084112714527310}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: e6833da0ddbaa2147b634e72174a20e5, type: 3}
-  m_Controller: {fileID: 9100000, guid: 30114da19d8d5f34ca1fe98f5bfc3bb1, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!111 &111819253128062100
 Animation:
   m_ObjectHideFlags: 1
@@ -340,7 +323,7 @@ Animation:
   m_Animations:
   - {fileID: 7400002, guid: e6833da0ddbaa2147b634e72174a20e5, type: 3}
   m_WrapMode: 0
-  m_PlayAutomatically: 0
+  m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
 --- !u!114 &114208272224928466
@@ -388,8 +371,6 @@ MonoBehaviour:
   Speed: 0.75
   TurnSpeed: 45
   GoalTolerance: 0.1
-  AnimationStartMoveSpeed: 0.15
-  AnimationStopMoveSpeed: 0.15
   TargetLocation: {x: 3.4028235e+38, y: 0, z: 0}
 --- !u!114 &114498478273154296
 MonoBehaviour:

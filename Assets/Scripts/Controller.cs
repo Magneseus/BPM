@@ -40,6 +40,11 @@ public class Controller : MonoBehaviour
     void Update()
     {
         #region Unit Selection
+
+        var destroyedSelectedUnits = playerArmy.selectedUnits.Where(u => u == null).ToList();
+        if (destroyedSelectedUnits.Any())
+            playerArmy.selectedUnits.RemoveAll(u => u == null);
+
         // If we press the left mouse button, begin selection and remember the location of the mouse
         if (!EventSystem.current.IsPointerOverGameObject(-1))
         {

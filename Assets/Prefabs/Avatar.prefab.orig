@@ -43,7 +43,10 @@ GameObject:
   - component: {fileID: 114208272224928466}
   - component: {fileID: 114218098067633356}
   - component: {fileID: 95204276950730132}
+<<<<<<< HEAD
   - component: {fileID: 199867495249637036}
+=======
+>>>>>>> refs/remotes/origin/BaseClass
   m_Layer: 0
   m_Name: Avatar
   m_TagString: Untagged
