@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Utils;
+using UnityEditor;
 using UnityEngine;
 
 /**
@@ -51,22 +52,60 @@ public class Unit : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+
+        if (gameObject.name.Contains("Tank"))
+        {
+            var childGameObject = transform.FindChild("light_ranged");
+            if (childGameObject != null)
+            {
+                var ps = childGameObject.GetComponent<ParticleSystem>();
+                var main = ps.main;
+                // Damaged Animations
+                if (Health < MaxHealth / 2)
+                {
+                    main.loop = true;
+                    if (!ps.isPlaying)
+                        ps.Play();
+                }
+                else
+                {
+                    ps.Stop();
+                }
+
+                if (Health <= 0)
+                {
+                    ps.Stop();
+                }
+            }
+        }
+
         // TODO: Remove this and replace with proper death checking
         if (Health <= 0.0f)
         {
-            var ps = GetComponent<ParticleSystem>();
-            
-            if (!ps.isPlaying && !hasExploded)
+            moveScript.Speed = 0;
+            moveScript.TurnSpeed = 0;
+            // Only tank has death animation right now
+            if (gameObject.name.Contains("Tank"))
             {
-                var main = ps.main;
-                main.loop = false;
-                ps.Play();
-                hasExploded = true;
-                //GetComponent<Renderer>().enabled = false;
-            }
+                
+                var ps = GetComponent<ParticleSystem>();
 
-            if (!ps.IsAlive())
-                Destroy(this.gameObject);
+                if (!ps.isPlaying && !hasExploded)
+                {
+                    var main = ps.main;
+                    main.loop = false;
+                    ps.Play();
+                    hasExploded = true;
+                }
+
+                if (!ps.IsAlive())
+                    Destroy(gameObject);
+
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
 
     }
