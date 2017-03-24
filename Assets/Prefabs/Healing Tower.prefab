@@ -41,7 +41,8 @@ GameObject:
   - component: {fileID: 136473081465266938}
   - component: {fileID: 114736085135824694}
   - component: {fileID: 114406612373783814}
-  m_Layer: 0
+  - component: {fileID: 95789997572244436}
+  m_Layer: 2
   m_Name: Healing Tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -641,6 +642,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!95 &95789997572244436
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1145537649210334}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 6e547b3fee2b280479061c8c94afce84, type: 3}
+  m_Controller: {fileID: 9100000, guid: 11c0d97ac83dee242ace752fde47f249, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!111 &111819748292245098
 Animation:
   m_ObjectHideFlags: 1
@@ -667,6 +685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26f0e4da76aa26f4889ec6735bef0cdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HealAnimator: {fileID: 95789997572244436}
   HealAmount: 2
   HealRate: 1
 --- !u!114 &114736085135824694

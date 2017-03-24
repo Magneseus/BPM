@@ -60,8 +60,12 @@ GameObject:
   - component: {fileID: 114750210304537794}
   - component: {fileID: 114151073644908200}
   - component: {fileID: 114187583581654556}
-  - component: {fileID: 95634706185472482}
+<<<<<<< HEAD
+  - component: {fileID: 198351869230485264}
   - component: {fileID: 199109074995641364}
+=======
+  - component: {fileID: 95634706185472482}
+>>>>>>> BaseClass
   m_Layer: 0
   m_Name: Tank
   m_TagString: Untagged

@@ -357,6 +357,7 @@ GameObject:
   - component: {fileID: 114017788232050642}
   - component: {fileID: 114734392999893646}
   - component: {fileID: 114282180796920216}
+  - component: {fileID: 95758719627644910}
   m_Layer: 0
   m_Name: Infantry
   m_TagString: Untagged
@@ -893,6 +894,23 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95758719627644910
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1803348353462840}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: c6acf3f29c109e4439950c8f6a85cb2b, type: 3}
+  m_Controller: {fileID: 9100000, guid: 96588a464dea5824690aaa3867d9f00b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114017788232050642
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -964,6 +982,8 @@ MonoBehaviour:
   Speed: 1.5
   TurnSpeed: 180
   GoalTolerance: 0.1
+  AnimationStartMoveSpeed: 0.15
+  AnimationStopMoveSpeed: 0.15
   TargetLocation: {x: 3.4028235e+38, y: 0, z: 0}
 --- !u!136 &136816181335313590
 CapsuleCollider:
