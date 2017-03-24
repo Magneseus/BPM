@@ -62,6 +62,7 @@ GameObject:
   - component: {fileID: 114187583581654556}
   - component: {fileID: 95634706185472482}
   - component: {fileID: 199109074995641364}
+  - component: {fileID: 198351869230485264}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Untagged
@@ -469,7 +470,7 @@ MonoBehaviour:
   TargetLocation: {x: 3.4028235e+38, y: 0, z: 0}
 --- !u!198 &198351869230485264
 ParticleSystem:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1182939752401736}

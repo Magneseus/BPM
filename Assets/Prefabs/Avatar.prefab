@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 114218098067633356}
   - component: {fileID: 95204276950730132}
   - component: {fileID: 199867495249637036}
+  - component: {fileID: 198888077728120506}
   m_Layer: 0
   m_Name: Avatar
   m_TagString: Untagged
@@ -408,7 +409,7 @@ MonoBehaviour:
   CurrentAction: 0
 --- !u!198 &198888077728120506
 ParticleSystem:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1084112714527310}

@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641252, b: 0.574817, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -419,7 +419,7 @@ Transform:
   - {fileID: 394927201}
   - {fileID: 970794150}
   - {fileID: 1963302478}
-  - {fileID: 1259530949}
+  - {fileID: 848051545}
   - {fileID: 992699378}
   - {fileID: 141523757}
   m_Father: {fileID: 0}
@@ -973,7 +973,7 @@ Prefab:
     - target: {fileID: 114433608781354172, guid: d6424a67a728df1458068deb279b87f8,
         type: 2}
       propertyPath: TeamNumber
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114433608781354172, guid: d6424a67a728df1458068deb279b87f8,
         type: 2}
@@ -1008,6 +1008,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d6424a67a728df1458068deb279b87f8, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &848051545 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4031370663450258, guid: d6424a67a728df1458068deb279b87f8,
+    type: 2}
+  m_PrefabInternal: {fileID: 848051544}
 --- !u!1 &887610844
 GameObject:
   m_ObjectHideFlags: 0
@@ -1490,107 +1495,6 @@ GameObject:
   m_PrefabParentObject: {fileID: 1182939752401736, guid: d6424a67a728df1458068deb279b87f8,
     type: 2}
   m_PrefabInternal: {fileID: 848051544}
---- !u!4 &1259530949 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4031370663450258, guid: d6424a67a728df1458068deb279b87f8,
-    type: 2}
-  m_PrefabInternal: {fileID: 848051544}
-    - target: {fileID: 0}
-      propertyPath: m_NormalDirection
-    - target: {fileID: 0}
-      propertyPath: m_MaxParticleSize
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Pivot.x
-    - target: {fileID: 0}
-      propertyPath: m_Pivot.z
-      value: 0
-    - target: {fileID: 0}
-      propertyPath: m_Pivot.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_UseCustomVertexStreams
-      value: 0
-    - target: {fileID: 0}
-      propertyPath: m_RenderAlignment
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_RenderMode
-    - target: {fileID: 0}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-    - target: {fileID: 0}
-      propertyPath: randomSeed
-      value: -509855866
-    - target: {fileID: 0}
-      propertyPath: InitialModule.startSize.scalar
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: ColorModule.gradient.maxGradient.atime1
-      value: 65535
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: ColorModule.gradient.maxGradient.key0.rgba
-      value: 4278190080
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: ColorModule.gradient.maxGradient.key1.rgba
-      value: 16777215
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: ShapeModule.angle
-    - target: {fileID: 0}
-      propertyPath: EmissionModule.enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 199867495249637036, guid: ab2e12e1ac85c604ca1fb6eca89688f1,
-      propertyPath: m_Pivot.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 199867495249637036, guid: ab2e12e1ac85c604ca1fb6eca89688f1,
-        type: 2}
-      propertyPath: m_RenderAlignment
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 199867495249637036, guid: ab2e12e1ac85c604ca1fb6eca89688f1,
-        type: 2}
-      propertyPath: m_Pivot.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 199867495249637036, guid: ab2e12e1ac85c604ca1fb6eca89688f1,
-        type: 2}
-      propertyPath: m_UseCustomVertexStreams
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_MinParticleSize
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: randomSeed
-      value: -1719257383
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: ClampVelocityModule.magnitude.maxCurve.m_Curve.Array.data[1].time
-      value: 0.4658926
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: ClampVelocityModule.magnitude.maxCurve.m_Curve.Array.data[1].inSlope
-      value: -4.511489
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: ClampVelocityModule.magnitude.maxCurve.m_Curve.Array.data[1].outSlope
-      value: -4.511489
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: ColorModule.gradient.maxGradient.atime1
-      value: 40285
-      objectReference: {fileID: 0}
 --- !u!1 &1386527839
 GameObject:
   m_ObjectHideFlags: 0
@@ -1864,10 +1768,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1540121214}
-  simulationSpeed: 1
-  randomSeed: -1325504962
-  simulationSpeed: 1
-  randomSeed: -1325504962
 --- !u!1 &1567076257
 GameObject:
   m_ObjectHideFlags: 0
