@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class HealTower : MonoBehaviour
 {
-    public float HealAmount;
+	public Animator HealAnimator;
+	public float HealAmount;
     public float HealRate;
 
     private Unit selfUnit;
@@ -22,6 +23,7 @@ public class HealTower : MonoBehaviour
         }
 
         unitsInArea = new List<Unit>();
+
 	}
 	
 	// Update is called once per frame
@@ -29,17 +31,20 @@ public class HealTower : MonoBehaviour
     {
         healTimer += Time.deltaTime;
 
-        if (healTimer >= HealRate)
-        {
-            // Reset the timer
-            healTimer = 0.0f;
+		if (healTimer >= HealRate) {
+			// Reset the timer
+			healTimer = 0.0f;
 
-            // Heal all units in our area
-            foreach (Unit u in unitsInArea)
-            {
-                u.DoHeal(HealAmount);
-            }
-        }
+			// Activate Animation
+			HealAnimator.SetBool ("Activated", true);
+
+			// Heal all units in our area
+			foreach (Unit u in unitsInArea) {
+				u.DoHeal (HealAmount);
+			}
+		} else if(healTimer >= HealRate/2) {
+			HealAnimator.SetBool ("Activated", false);
+		}
 	}
 
     // Add units if they enter the heal area and are friendly

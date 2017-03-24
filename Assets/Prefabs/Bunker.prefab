@@ -108,6 +108,7 @@ GameObject:
   - component: {fileID: 136710683020428406}
   - component: {fileID: 114482027686939536}
   - component: {fileID: 114054269899667262}
+  - component: {fileID: 95172403113847716}
   m_Layer: 0
   m_Name: Bunker
   m_TagString: Untagged
@@ -163,8 +164,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1748099955416832}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.001, y: 0, z: 5.83}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4640380326583376}
@@ -433,6 +434,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!95 &95172403113847716
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1748099955416832}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 6c477d0093e954f47a2f30227c24c30f, type: 3}
+  m_Controller: {fileID: 9100000, guid: d2200a8f0ee581646b8f20529228c556, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!111 &111997364267149578
 Animation:
   m_ObjectHideFlags: 1
@@ -445,7 +463,7 @@ Animation:
   m_Animations:
   - {fileID: 7400004, guid: 6c477d0093e954f47a2f30227c24c30f, type: 3}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
 --- !u!114 &114054269899667262
@@ -459,6 +477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6428d16fdc31cc041a5c8c471caa32fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BunkerAnimator: {fileID: 95172403113847716}
   Range: 1.5
   DamageMultiplier: 1.5
   RangeMultiplier: 2
