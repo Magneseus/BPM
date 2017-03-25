@@ -25,6 +25,10 @@ public class Controller : MonoBehaviour
     public Sprite RegularCursorSprite;
     public Sprite AttackCursorSprite;
 
+
+    // REMOVE LATER
+    private bool PostInit = false;
+
     // Use this for initialization
     void Start ()
     {
@@ -36,9 +40,29 @@ public class Controller : MonoBehaviour
         UIUtils.SetDeployButtonVisibility(false);
     }
 
+    // TODO: Remove later
+    private void PostInitF()
+    {
+        // deal damage to the main tank for the particle effect
+        Unit u = GameObject.Find("Tank").GetComponent<Unit>();
+
+        if (u != null)
+        {
+            u.DoDamage(u.Health * 0.9f);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
+        #region REMOVE_LATER
+        if (!PostInit)
+        {
+            PostInitF();
+            PostInit = true;
+        }
+        #endregion
+
         #region Unit Selection
 
         var destroyedSelectedUnits = playerArmy.selectedUnits.Where(u => u == null).ToList();
