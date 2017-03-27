@@ -68,7 +68,7 @@ public class Controller : MonoBehaviour
                 playerArmy.selectedUnits = new List<Unit>();
                 foreach (var selectableObject in FindObjectsOfType<Unit>())
                 {
-                    if (IsWithinSelectionBounds(selectableObject.gameObject))
+                    if (IsWithinSelectionBounds(selectableObject.gameObject) && selectableObject.TeamNumber == playerArmy.TeamNumber)
                     {
                         playerArmy.selectedUnits.Add(selectableObject);
                     }
@@ -129,15 +129,22 @@ public class Controller : MonoBehaviour
             {
                 RaycastHit hit;
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                switch (CurrentCommand)
+                if (Physics.Raycast(ray, out hit))
                 {
-                    case UIUtils.CommandType.Move:
-                        if (Physics.Raycast(ray, out hit))
-                        {
-                            var hitGameObject = hit.transform.gameObject;
+                    var hitGameObject = hit.transform.gameObject;
+                    var unitScript = hitGameObject.GetComponent<Unit>();
+                    // If clicking over an enemy unit, attack instead
+                    if (unitScript != null && unitScript.TeamNumber != playerArmy.TeamNumber)
+                    {
+                        CurrentCommand = UIUtils.CommandType.Attack;
+                    }
+                    switch (CurrentCommand)
+                    {
+                        case UIUtils.CommandType.Move:
                             var newTransform = hit.point;
                             foreach (var unit in playerArmy.selectedUnits)
                             {
+                                unit.GiveCommand(UIUtils.CommandType.StopAttack, hitGameObject, hitGameObject.transform);
                                 unit.MoveCommand(newTransform);
 
                                 if (hitGameObject.tag == "Bunker")
@@ -150,13 +157,18 @@ public class Controller : MonoBehaviour
                                 else
                                     unit.CurrentAction = Unit.UnitSpecialAction.None;
                             }
-                        }
-                        break;
-                    case UIUtils.CommandType.Attack:
 
-                        break;
+                            break;
+                        case UIUtils.CommandType.Attack:
+                            foreach (var unit in playerArmy.selectedUnits)
+                            {
+                                unit.GiveCommand(UIUtils.CommandType.Attack, hitGameObject, hitGameObject.transform);
+                            }
+                            break;
+                    }
                 }
             }
+        
             // Switch the command back to move after
             CurrentCommand = UIUtils.CommandType.Move;
         }

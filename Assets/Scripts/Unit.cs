@@ -147,6 +147,10 @@ public class Unit : MonoBehaviour
                     return attackScript.AttackTarget(go);
                 else
                     return false;
+            case UIUtils.CommandType.StopAttack:
+                if (attackScript != null && gameObject != null)
+                    attackScript.Stop();
+                break;
             //case "coolability1":
             //    
             //    break;

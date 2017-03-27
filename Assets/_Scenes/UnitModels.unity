@@ -1490,11 +1490,6 @@ Transform:
   m_Father: {fileID: 1386527840}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 85, y: 0, z: 0}
---- !u!1 &1259530948 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1182939752401736, guid: d6424a67a728df1458068deb279b87f8,
-    type: 2}
-  m_PrefabInternal: {fileID: 848051544}
 --- !u!1 &1386527839
 GameObject:
   m_ObjectHideFlags: 0
@@ -2065,11 +2060,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114151073644908200, guid: d6424a67a728df1458068deb279b87f8,
-        type: 2}
-      propertyPath: Target
-      value: 
-      objectReference: {fileID: 1259530948}
     - target: {fileID: 198351869230485264, guid: d6424a67a728df1458068deb279b87f8,
         type: 2}
       propertyPath: InitialModule.startSpeed.scalar
@@ -2099,6 +2089,16 @@ Prefab:
         type: 2}
       propertyPath: m_MaxParticleSize
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114151073644908200, guid: d6424a67a728df1458068deb279b87f8,
+        type: 2}
+      propertyPath: Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114433608781354172, guid: d6424a67a728df1458068deb279b87f8,
+        type: 2}
+      propertyPath: TeamNumber
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d6424a67a728df1458068deb279b87f8, type: 2}
