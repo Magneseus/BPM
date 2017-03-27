@@ -125,6 +125,8 @@ public class Attack : MonoBehaviour
         // Stop attacking the target
         Target = null;
         TargetUnit = null;
+
+        unitAnimator.SetBool("Attacking", false);
     }
 	
 	// Update is called once per frame
