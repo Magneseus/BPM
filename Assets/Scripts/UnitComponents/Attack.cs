@@ -96,8 +96,13 @@ public class Attack : MonoBehaviour
             ///////               ATTACK               ///////
             else
             {
-                // Deal damage to the unit
-                TargetUnit.DoDamage(Damage);
+                // Deal damage to the unit, modified by ryhthm if applicable
+				float dmg = Damage;
+				if (GetComponentInParent<Unit> ().TeamNumber == 0 && Rhythm.Instance ().IsOnUpBeat ()) {
+					dmg *= Rhythm.Instance ().GetDamageMultiplier ();
+				}
+
+				TargetUnit.DoDamage(dmg);
 
                 // trigger attack animation
 				unitAnimator.SetBool("Attacking", true);

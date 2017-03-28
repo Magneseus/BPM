@@ -83,8 +83,12 @@ public class Move : MonoBehaviour
 
 			// Rotate towards the correct orientation
 			float totalAng = Vector3.Angle (moveDir, curDir);
+			float turnspd = TurnSpeed * Time.deltaTime;
+			if (GetComponentInParent<Unit> ().TeamNumber == 0 && Rhythm.Instance ().IsOnDownBeat ()) {
+				turnspd *= Rhythm.Instance ().GetMoveMultiplier ();
+			}
 			float linearTurn = Mathf.Clamp (
-				                            (TurnSpeed * Time.deltaTime) / totalAng, 
+											turnspd/ totalAng, 
 				                            0.0f, 
 				                            1.0f);
 
@@ -97,9 +101,15 @@ public class Move : MonoBehaviour
 			Quaternion newOrient = Quaternion.LookRotation (newDir, Vector3.up);
 
 
+			// Check if multiplier from music
+			float spd = Speed;
+			if (GetComponentInParent<Unit> ().TeamNumber == 0 && Rhythm.Instance ().IsOnDownBeat ()) {
+				spd *= Rhythm.Instance ().GetMoveMultiplier ();
+			}
+
 			// Generate the new position
 			Vector3 newPos = this.transform.position +
-			                          (newDir * Speed * Time.deltaTime);
+											(newDir * spd * Time.deltaTime);
 
 
 			// End goal
@@ -113,7 +123,7 @@ public class Move : MonoBehaviour
 			this.transform.rotation = newOrient;
 
 			// Update Animator Values
-			unitAnimator.SetFloat ("Speed", Speed);
+			unitAnimator.SetFloat ("Speed", spd);
 		} else {
 			unitAnimator.SetFloat ("Speed", 0f);
 		}
