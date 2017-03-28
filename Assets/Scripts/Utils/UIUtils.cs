@@ -20,7 +20,8 @@ namespace Assets.Scripts.Utils
         {
             Move,
             Attack,
-            UnloadBunker
+            UnloadBunker,
+            StopAttack
         }
 
         public static Texture2D WhiteTexture
