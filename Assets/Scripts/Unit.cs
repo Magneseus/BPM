@@ -197,7 +197,6 @@ public class Unit : MonoBehaviour
     public void DoDamage(float damageDealt)
     {
         Health = Mathf.Max(0.0f, Health - damageDealt);
-
         // TODO: Check for death and proceed accordingly?
     }
 

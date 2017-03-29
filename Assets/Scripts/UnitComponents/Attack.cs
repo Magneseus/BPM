@@ -8,7 +8,7 @@ public class Attack : MonoBehaviour
     private int selfTeam;
     private IEnumerator attackCoroutine;
     private bool CR_Running;
-	private Animator unitAnimator;
+    private Animator unitAnimator;
 
     public GameObject Target;
     private Unit TargetUnit;
@@ -19,13 +19,12 @@ public class Attack : MonoBehaviour
 
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         selfUnit = this.GetComponent<Unit>();
-		unitAnimator = this.GetComponent<Animator> ();
+        unitAnimator = this.GetComponent<Animator>();
         if (selfUnit != null)
             selfTeam = selfUnit.TeamNumber;
-
     }
 
     // Attacking a GameObject (must contain a Unit)
@@ -63,6 +62,14 @@ public class Attack : MonoBehaviour
         return false;
     }
 
+    // This method is called whenever the attack /actually/ happens
+    // As such it can be overridden by a class inheriting from Attack.
+    protected virtual void DealDamageToTarget(Unit _targetUnit, float Dmg = Damage)
+    {
+        // By default just do damage to the target
+        TargetUnit.DoDamage(Dmg);
+    }
+
     IEnumerator AttackMove()
     {
         CR_Running = true;
@@ -71,8 +78,8 @@ public class Attack : MonoBehaviour
         // AND 
         // (we can chase the target OR it's in our range)
         while (Target != null &&
-            (DoChaseTarget || 
-            (this.transform.position -Target.transform.position).sqrMagnitude
+            (DoChaseTarget ||
+            (this.transform.position - Target.transform.position).sqrMagnitude
                 <= Range))
         {
             ///////               MOVE               ///////
@@ -80,8 +87,8 @@ public class Attack : MonoBehaviour
             Vector3 dist = Target.transform.position - this.transform.position;
             if (dist.sqrMagnitude > Range * Range)
             {
-				// deactivate attack animation if active
-				unitAnimator.SetBool("Attacking", false);
+                // deactivate attack animation if active
+                unitAnimator.SetBool("Attacking", false);
 
                 // If we can't chase then cancel
                 if (!DoChaseTarget)
@@ -102,10 +109,13 @@ public class Attack : MonoBehaviour
 					dmg *= Rhythm.Instance ().GetDamageMultiplier ();
 				}
 
-				TargetUnit.DoDamage(dmg);
+				// Deal damage to the unit (based on the Unit's interpretation
+                // of the DealDamageToTarget function)
+                DealDamageToTarget(TargetUnit);
 
+                // TODO: Implement this properly with the virtual function
                 // trigger attack animation
-				unitAnimator.SetBool("Attacking", true);
+                unitAnimator.SetBool("Attacking", true);
             }
 
 
