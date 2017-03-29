@@ -64,8 +64,11 @@ public class Attack : MonoBehaviour
 
     // This method is called whenever the attack /actually/ happens
     // As such it can be overridden by a class inheriting from Attack.
-    protected virtual void DealDamageToTarget(Unit _targetUnit, float Dmg = Damage)
+    protected virtual void DealDamageToTarget(Unit _targetUnit, float Dmg=float.NaN)
     {
+        // If we weren't passed a special damage number, use default damage
+        Dmg = Dmg == float.NaN ? Damage : Dmg;
+
         // By default just do damage to the target
         TargetUnit.DoDamage(Dmg);
     }
@@ -111,7 +114,7 @@ public class Attack : MonoBehaviour
 
 				// Deal damage to the unit (based on the Unit's interpretation
                 // of the DealDamageToTarget function)
-                DealDamageToTarget(TargetUnit);
+                DealDamageToTarget(TargetUnit, dmg);
 
                 // TODO: Implement this properly with the virtual function
                 // trigger attack animation

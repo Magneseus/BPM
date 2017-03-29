@@ -8,8 +8,11 @@ public class TankAttack : Attack
     public Vector3 TankShellSpawnOffset;
     public float ForceOfShot;
 
-    protected override void DealDamageToTarget(Unit _targetUnit)
+    protected override void DealDamageToTarget(Unit _targetUnit, float Dmg=float.NaN)
     {
+        // If we weren't passed a special damage number, use default damage
+        Dmg = Dmg == float.NaN ? Damage : Dmg;
+
         // Spawn the tank shell and give it an initial momentum
         GameObject go = Instantiate(TankShellPrefab);
 
