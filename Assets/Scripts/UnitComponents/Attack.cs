@@ -133,6 +133,11 @@ public class Attack : MonoBehaviour
 
         unitAnimator.SetBool("Attacking", false);
     }
+
+    public bool HasTarget()
+    {
+        return Target == null;
+    }
 	
 	// Update is called once per frame
 	void Update ()
