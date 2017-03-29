@@ -24,7 +24,7 @@ public class Unit : MonoBehaviour
     public GameObject SelectionCircle;
     public UnitSpecialAction CurrentAction;
     private bool hasExploded;
-    private const int EnemyDetectionRadius = 6;
+    private const int EnemyDetectionRadius = 6.5;
 
     ////        SCRIPT TYPES        ////
     private Attack attackScript;
