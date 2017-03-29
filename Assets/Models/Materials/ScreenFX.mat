@@ -72,7 +72,7 @@ Material:
     m_Floats:
     - first:
         name: _BeatTime
-      second: 0.5028184
+      second: 0.19879976
     - first:
         name: _BumpScale
       second: 1
@@ -139,4 +139,4 @@ Material:
       second: {r: 0, g: 0, b: 0, a: 1}
     - first:
         name: _ScreenSize
-      second: {r: 812, g: 532, b: 0, a: 0}
+      second: {r: 1920, g: 949, b: 0, a: 0}

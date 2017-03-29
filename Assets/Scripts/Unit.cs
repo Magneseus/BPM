@@ -84,8 +84,6 @@ public class Unit : MonoBehaviour
         // TODO: Remove this and replace with proper death checking
         if (Health <= 0.0f)
         {
-            moveScript.Speed = 0;
-            moveScript.TurnSpeed = 0;
             // Only tank has death animation right now
             if (gameObject.name.Contains("Tank"))
             {
@@ -108,6 +106,8 @@ public class Unit : MonoBehaviour
             {
                 Destroy(gameObject);
             }
+            moveScript.Speed = 0;
+            moveScript.TurnSpeed = 0;
         }
         #endregion
 
@@ -136,7 +136,8 @@ public class Unit : MonoBehaviour
 	                    }
 	                }
 
-	                attackScript.AttackTarget(closestTarget);
+                    if (closestTarget != null)
+	                    attackScript.AttackTarget(closestTarget);
 	            }
 	        }
 	    }

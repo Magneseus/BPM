@@ -136,7 +136,7 @@ public class Attack : MonoBehaviour
 
     public bool HasTarget()
     {
-        return Target == null;
+        return Target != null;
     }
 	
 	// Update is called once per frame
