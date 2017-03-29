@@ -44,6 +44,10 @@ public class Attack : MonoBehaviour
     // Attacking a Unit directly
     public bool AttackTarget(Unit _targetUnit)
     {
+        // Check if we're already attacking this unit, and if so ignore command
+        if (_targetUnit == TargetUnit)
+            return true;
+
         // If we cannot attack this target for some reason, return false
         if (_targetUnit.TeamNumber == this.selfTeam)
         {
@@ -59,7 +63,7 @@ public class Attack : MonoBehaviour
         attackCoroutine = AttackMove();
         StartCoroutine(attackCoroutine);
 
-        return false;
+        return true;
     }
 
     // This method is called whenever the attack /actually/ happens
