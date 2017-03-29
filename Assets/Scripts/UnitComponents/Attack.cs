@@ -15,6 +15,7 @@ public class Attack : MonoBehaviour
     public float Range;
     public float Damage;
     public float RateOfFire;
+    public float AngleOfFire;
     public bool DoChaseTarget;
 
 
@@ -89,9 +90,35 @@ public class Attack : MonoBehaviour
             (this.transform.position - Target.transform.position).sqrMagnitude
                 <= Range))
         {
+            //Vector3 dist = Target.transform.position - this.transform.position;
+            Vector2 __pos = new Vector2(this.transform.position.x, 
+                this.transform.position.z);
+            Vector2 __targ = new Vector2(Target.transform.position.x, 
+                Target.transform.position.z);
+
+            // Get vector (on XZ plane) between us and target
+            Vector2 dist = __targ - __pos;
+
+            // Get forward dir
+            Vector2 forwardDir = new Vector2(this.transform.forward.x,
+                this.transform.forward.z);
+
+
+            ///////               TURN               ///////
+            if (AngleOfFire != 0 && 
+                Vector2.Angle(forwardDir, dist) > AngleOfFire)
+            {
+                // Are we moving?
+                if (selfUnit.IsMoveStopped())
+                {
+                    // Turn the unit towards the target
+                    selfUnit.TurnToLookAt(Target.transform.position);
+                }
+            }
+
+
             ///////               MOVE               ///////
             // If we're not in range, then move towards the unit
-            Vector3 dist = Target.transform.position - this.transform.position;
             if (dist.sqrMagnitude > Range * Range)
             {
                 // deactivate attack animation if active
@@ -108,9 +135,10 @@ public class Attack : MonoBehaviour
                 }
             }
             ///////               ATTACK               ///////
-            else
+            else if (AngleOfFire == 0 || 
+                Vector2.Angle(forwardDir, dist) < AngleOfFire)
             {
-                // Deal damage to the unit, modified by ryhthm if applicable
+                // Deal damage to the unit, modified by rhythm if applicable
 				float dmg = Damage;
 				if (GetComponentInParent<Unit> ().TeamNumber == 0 && Rhythm.Instance ().IsOnUpBeat ()) {
 					dmg *= Rhythm.Instance ().GetDamageMultiplier ();
@@ -123,11 +151,19 @@ public class Attack : MonoBehaviour
                 // TODO: Implement this properly with the virtual function
                 // trigger attack animation
                 unitAnimator.SetBool("Attacking", true);
+
+                // Wait for our RoF to reset
+                yield return new WaitForSeconds(RateOfFire);
+            }
+            else
+            {
+                // Halt movement
+                selfUnit.MoveStop();
             }
 
 
-            // Wait for our RoF to reset
-            yield return new WaitForSeconds(RateOfFire);
+            // Wait for 0.01 seconds
+            yield return new WaitForSeconds(0.01f);
         }
 
         // We're done attacking

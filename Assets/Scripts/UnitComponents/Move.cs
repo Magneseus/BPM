@@ -54,12 +54,18 @@ public class Move : MonoBehaviour
         TargetLocation = new Vector3(float.MaxValue, 0, 0);
     }
 
+    // Are we moving?
+    public bool IsStopped()
+    {
+        return TargetLocation.x == float.MaxValue;
+    }
+
     // Update is called once per frame
     void FixedUpdate ()
     {
 
         // If we are a unit and we have a target to move to
-		if (selfUnit != null && TargetLocation.x != float.MaxValue) {
+		if (selfUnit != null && !this.IsStopped()) {
 			// TODO: Change this so that the vectors aren't projected onto the
 			//       plane, so that we can have vertical movement as well
 

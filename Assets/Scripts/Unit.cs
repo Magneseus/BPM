@@ -26,6 +26,8 @@ public class Unit : MonoBehaviour
     private bool hasExploded;
     private const float EnemyDetectionRadius = 6;
 
+    private Vector3 TargetToLookAt;
+
     ////        SCRIPT TYPES        ////
     private Attack attackScript;
     private Move moveScript;
@@ -49,6 +51,8 @@ public class Unit : MonoBehaviour
         MaxHealth = Health;
 
         //... = GetComponent<...>();
+
+        TargetToLookAt = new Vector3(float.MaxValue, 0, 0);
 	}
 	
 	// Update is called once per frame
@@ -144,6 +148,15 @@ public class Unit : MonoBehaviour
         #endregion
     }
 
+    void FixedUpdate()
+    {
+        if (TargetToLookAt.x != float.MaxValue)
+        {
+            TurnUnit();
+            TargetToLookAt.x = float.MaxValue;
+        }
+    }
+
     // Tell the unit to move to a specific location
     public bool MoveCommand(Transform moveTo)
     {
@@ -163,6 +176,28 @@ public class Unit : MonoBehaviour
 
         // Otherwise try and move
         return moveScript.MoveCommand(moveTo);
+    }
+
+    // Stop movement
+    public void MoveStop()
+    {
+        // If we don't have a move script then do nothing
+        if (moveScript == null)
+            return;
+
+        // Otherwise, stop movement
+        moveScript.Stop();
+    }
+
+    // Are we moving?
+    public bool IsMoveStopped()
+    {
+        // If we don't have a move script then return true, we aren't moving
+        if (moveScript == null)
+            return true;
+
+        // Otherwise check if we're stopped
+        return moveScript.IsStopped();
     }
 
     // Give this unit a command (eg. "attack", "ability1", etc)
@@ -204,6 +239,57 @@ public class Unit : MonoBehaviour
     public void DoHeal(float healDealt)
     {
         Health = Mathf.Min(MaxHealth, Health + healDealt);
+    }
+
+
+
+    public void TurnToLookAt(Vector3 _TargetToLookAt)
+    {
+        TargetToLookAt = _TargetToLookAt;
+    }
+
+    // Turns a unit
+    private void TurnUnit()
+    {
+        // Get the new forward dir
+        Vector3 forwardDir = this.transform.forward;
+
+        // Calculate move vector and project onto the movement plane
+        Vector3 dist = TargetToLookAt - this.transform.position;
+
+        // TODO: Make movement a non-2d operation
+        dist.y = 0.0f;
+
+        Vector3 moveDir = Vector3.ProjectOnPlane(dist, Vector3.up).normalized;
+
+        // Get the current forward vector and project on the movement plane
+        Vector3 curDir = Vector3.ProjectOnPlane(forwardDir, Vector3.up).normalized;
+
+
+        float TurnSpeed = 1000.0f;
+        if (moveScript != null)
+            TurnSpeed = moveScript.TurnSpeed;
+
+        // Rotate towards the correct orientation
+        float totalAng = Vector3.Angle(dist, forwardDir);
+        float turnspd = TurnSpeed * Time.deltaTime;
+        if (GetComponentInParent<Unit>().TeamNumber == 0 && Rhythm.Instance().IsOnDownBeat())
+        {
+            turnspd *= Rhythm.Instance().GetMoveMultiplier();
+        }
+        float linearTurn = Mathf.Clamp(
+                                        turnspd / totalAng,
+                                        0.0f,
+                                        1.0f);
+
+        // Lerp between the two vectors
+        Vector3 newDir =
+            Vector3.Slerp(forwardDir, dist, linearTurn).normalized;
+
+
+        // Set the new orientation
+        Quaternion newOrient = Quaternion.LookRotation(newDir, Vector3.up);
+        this.transform.rotation = newOrient;
     }
 
 }

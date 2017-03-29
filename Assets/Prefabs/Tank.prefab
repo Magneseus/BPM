@@ -450,6 +450,7 @@ MonoBehaviour:
   Range: 10
   Damage: 8
   RateOfFire: 2
+  AngleOfFire: 5
   DoChaseTarget: 1
   TankShellPrefab: {fileID: 1275549863065468, guid: 37970ed77b77ff742899d2e5da0d02a1,
     type: 2}
