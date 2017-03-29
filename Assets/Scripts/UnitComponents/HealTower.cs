@@ -13,6 +13,8 @@ public class HealTower : MonoBehaviour
     private List<Unit> unitsInArea;
     private float healTimer;
 
+	private bool upBeatPrevious = true;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -31,7 +33,8 @@ public class HealTower : MonoBehaviour
     {
         healTimer += Time.deltaTime;
 
-		if (healTimer >= HealRate) {
+		//if (healTimer >= HealRate) {		// tentatively commenting previous heal timing in case revert required
+		if(StartHealPulse()){
 			// Reset the timer
 			healTimer = 0.0f;
 
@@ -45,6 +48,22 @@ public class HealTower : MonoBehaviour
 		} else if(healTimer >= HealRate/2) {
 			HealAnimator.SetBool ("Activated", false);
 		}
+	}
+
+	// Checks against music for heal pulse timing
+	private bool StartHealPulse(){
+
+		// When beat first changes to down beat trigger pulse and reset local bool
+		if (upBeatPrevious && Rhythm.Instance ().IsOnDownBeat ()) {
+			upBeatPrevious = false;
+			return true;
+		}
+
+		// When beat first changes to up beat activate local bool to enable pulse on next down beat
+		else if (!upBeatPrevious && Rhythm.Instance ().IsOnUpBeat ()) {
+			upBeatPrevious = true;
+		}
+		return false;
 	}
 
     // Add units if they enter the heal area and are friendly

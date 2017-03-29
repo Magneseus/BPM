@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Utils;
 using UnityEditor;
 using UnityEngine;
@@ -23,6 +24,7 @@ public class Unit : MonoBehaviour
     public GameObject SelectionCircle;
     public UnitSpecialAction CurrentAction;
     private bool hasExploded;
+    private const int EnemyDetectionRadius = 6;
 
     ////        SCRIPT TYPES        ////
     private Attack attackScript;
@@ -52,7 +54,7 @@ public class Unit : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-
+        #region Health checks
         if (gameObject.name.Contains("Tank"))
         {
             var childGameObject = transform.FindChild("light_ranged");
@@ -107,7 +109,38 @@ public class Unit : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        #endregion
 
+        #region Enemy AI
+        // TODO: Assuming player's team is always 0 atm
+	    if (TeamNumber > 0)
+	    {
+	        if (!attackScript.HasTarget())
+	        {
+	            var hitColliders = Physics.OverlapSphere(transform.position, EnemyDetectionRadius);
+	            if (hitColliders.Any())
+	            {
+	                GameObject closestTarget = null;
+	                float smallestDistance = 99999;
+	                foreach (var targetGameObject in hitColliders)
+	                {
+	                    var unitComponent = targetGameObject.gameObject.GetComponent<Unit>();
+	                    if (unitComponent != null && unitComponent.TeamNumber != TeamNumber)
+	                    {
+	                        var distanceToTarget = Vector3.Distance(targetGameObject.transform.position, gameObject.transform.position);
+	                        if (closestTarget == null || distanceToTarget < smallestDistance)
+	                        {
+	                            closestTarget = targetGameObject.gameObject;
+	                            smallestDistance = distanceToTarget;
+	                        }
+	                    }
+	                }
+
+	                attackScript.AttackTarget(closestTarget);
+	            }
+	        }
+	    }
+        #endregion
     }
 
     // Tell the unit to move to a specific location
