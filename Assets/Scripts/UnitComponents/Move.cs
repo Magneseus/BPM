@@ -51,12 +51,31 @@ public class Move : MonoBehaviour
     // Tell the unit to move to a specific location
     public bool MoveCommand(Vector3 moveTo, bool isAttackMove)
     {
-        // If we are a Unit
-        if (selfUnit != null)
+        // Check the NavMesh to see if it's a valid position
+        NavMeshHit nvh;
+        if (NavMesh.SamplePosition(moveTo, out nvh, 1.0f, NavMesh.AllAreas))
         {
-            IsAttackMove = isAttackMove;
-            TargetLocation = moveTo;
-            return true;
+            // New Path
+            NavMeshPath newPath = new NavMeshPath();
+
+            // Generate a path, if one exists
+            if (unitNav.CalculatePath(nvh.position, newPath))
+            {
+                if (newPath.status == NavMeshPathStatus.PathComplete)
+                {
+                    // Something?
+                    IsAttackMove = isAttackMove;
+
+                    // Set the goal
+                    TargetLocation = moveTo;
+
+                    // Set the path
+                    TargetPath = newPath;
+                    unitNav.SetPath(TargetPath);
+
+                    return true;
+                }
+            }
         }
 
         return false;
@@ -66,7 +85,8 @@ public class Move : MonoBehaviour
     public void Stop()
     {
         TargetLocation = new Vector3(float.MaxValue, 0, 0);
-        unitNav.ResetPath();
+        if (unitNav != null)
+            unitNav.ResetPath();
         TargetPath = null;
     }
 

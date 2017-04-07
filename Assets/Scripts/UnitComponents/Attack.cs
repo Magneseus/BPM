@@ -184,7 +184,8 @@ public class Attack : MonoBehaviour
         Target = null;
         TargetUnit = null;
 
-        unitAnimator.SetBool("Attacking", false);
+        if (unitAnimator != null)
+            unitAnimator.SetBool("Attacking", false);
     }
 
     public bool HasTarget()
