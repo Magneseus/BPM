@@ -985,6 +985,8 @@ MonoBehaviour:
   Speed: 1.5
   TurnSpeed: 240
   GoalTolerance: 0.5
+  TurnSpeed: 500
+  GoalTolerance: 0.1
   AnimationStartMoveSpeed: 0.15
   AnimationStopMoveSpeed: 0.15
   TargetLocation: {x: 3.4028235e+38, y: 0, z: 0}
