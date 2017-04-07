@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 114736085135824694}
   - component: {fileID: 114406612373783814}
   - component: {fileID: 95789997572244436}
+  - component: {fileID: 114537137890188088}
   m_Layer: 2
   m_Name: Healing Tower
   m_TagString: Untagged
@@ -688,6 +689,19 @@ MonoBehaviour:
   HealAnimator: {fileID: 95789997572244436}
   HealAmount: 2
   HealRate: 1
+--- !u!114 &114537137890188088
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1145537649210334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 727c603b869ae21499fdd1a84a083cd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rendererAttachTo: {fileID: 1342853137105590}
+  enemyMat: {fileID: 2100000, guid: 32e06570fbbf57e4a8c6d4a164f9d74e, type: 2}
 --- !u!114 &114736085135824694
 MonoBehaviour:
   m_ObjectHideFlags: 1

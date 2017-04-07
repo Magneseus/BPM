@@ -145,6 +145,7 @@ GameObject:
   - component: {fileID: 114633263842457166}
   - component: {fileID: 114009459953025686}
   - component: {fileID: 114925799731675442}
+  - component: {fileID: 114431401996847814}
   m_Layer: 0
   m_Name: Infantry
   m_TagString: Untagged
@@ -891,6 +892,7 @@ MonoBehaviour:
   Range: 5
   Damage: 1
   RateOfFire: 1
+  AngleOfFire: 0
   DoChaseTarget: 1
 --- !u!114 &114089603724889416
 MonoBehaviour:
@@ -906,6 +908,20 @@ MonoBehaviour:
   TeamNumber: 0
   Health: 10
   SelectionCircle: {fileID: 0}
+  CurrentAction: 0
+--- !u!114 &114431401996847814
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1252212891873224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 727c603b869ae21499fdd1a84a083cd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rendererAttachTo: {fileID: 1147142759051734}
+  enemyMat: {fileID: 2100000, guid: 652724a9e61deed48b1a5d6210d799a5, type: 2}
 --- !u!114 &114633263842457166
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -917,9 +933,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edef852cf9dfa5d428a41c015e1919d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Acceleration: 0
   Speed: 1.5
   TurnSpeed: 180
   GoalTolerance: 0.1
+  AnimationStartMoveSpeed: 0.15
+  AnimationStopMoveSpeed: 0.15
   TargetLocation: {x: 3.4028235e+38, y: 0, z: 0}
 --- !u!114 &114925799731675442
 MonoBehaviour:

@@ -109,6 +109,7 @@ GameObject:
   - component: {fileID: 114482027686939536}
   - component: {fileID: 114054269899667262}
   - component: {fileID: 95172403113847716}
+  - component: {fileID: 114664104529034202}
   m_Layer: 0
   m_Name: Bunker
   m_TagString: Untagged
@@ -497,6 +498,19 @@ MonoBehaviour:
   Health: 10
   SelectionCircle: {fileID: 0}
   CurrentAction: 0
+--- !u!114 &114664104529034202
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1748099955416832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 727c603b869ae21499fdd1a84a083cd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rendererAttachTo: {fileID: 1542934902769244}
+  enemyMat: {fileID: 2100000, guid: 32e06570fbbf57e4a8c6d4a164f9d74e, type: 2}
 --- !u!136 &136710683020428406
 CapsuleCollider:
   m_ObjectHideFlags: 1

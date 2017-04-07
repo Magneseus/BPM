@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 54741000261688498}
   - component: {fileID: 114047498390336056}
   - component: {fileID: 114545027715592950}
+  - component: {fileID: 114770235216222622}
   m_Layer: 0
   m_Name: Healing Tower
   m_TagString: Untagged
@@ -669,6 +670,7 @@ MonoBehaviour:
   TeamNumber: 0
   Health: 10
   SelectionCircle: {fileID: 0}
+  CurrentAction: 0
 --- !u!114 &114545027715592950
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -680,8 +682,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26f0e4da76aa26f4889ec6735bef0cdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HealAnimator: {fileID: 0}
   HealAmount: 2
   HealRate: 1
+--- !u!114 &114770235216222622
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1726981039647238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 727c603b869ae21499fdd1a84a083cd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rendererAttachTo: {fileID: 1045644211365290}
+  enemyMat: {fileID: 2100000, guid: 32e06570fbbf57e4a8c6d4a164f9d74e, type: 2}
 --- !u!135 &135383863623154276
 SphereCollider:
   m_ObjectHideFlags: 1

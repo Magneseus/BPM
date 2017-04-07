@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641252, b: 0.574817, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -82,8 +82,8 @@ NavMeshSettings:
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
-    agentSlope: 45
-    agentClimb: 0.4
+    agentSlope: 23.3
+    agentClimb: 0.3
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
@@ -355,6 +355,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114482027686939536, guid: 062a6ef21cc846449a2806422e268f79,
+        type: 2}
+      propertyPath: TeamNumber
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 062a6ef21cc846449a2806422e268f79, type: 2}
   m_IsPrefabParent: 0
@@ -396,6 +401,11 @@ Prefab:
     - target: {fileID: 4775753924607686, guid: 958b34a3824943e4e8b07dec4a237f6a, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114736085135824694, guid: 958b34a3824943e4e8b07dec4a237f6a,
+        type: 2}
+      propertyPath: TeamNumber
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 958b34a3824943e4e8b07dec4a237f6a, type: 2}
@@ -1403,7 +1413,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1252397976}
-  m_LocalRotation: {x: 0.67559016, y: 0, z: 0, w: 0.7372774}
+  m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
   m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2023,11 +2033,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 198888077728120506, guid: ab2e12e1ac85c604ca1fb6eca89688f1,
-        type: 2}
-      propertyPath: randomSeed
-      value: 172192249
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ab2e12e1ac85c604ca1fb6eca89688f1, type: 2}
   m_IsPrefabParent: 0
@@ -2070,55 +2075,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 198351869230485264, guid: d6424a67a728df1458068deb279b87f8,
-        type: 2}
-      propertyPath: InitialModule.startSpeed.scalar
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 198351869230485264, guid: d6424a67a728df1458068deb279b87f8,
-        type: 2}
-      propertyPath: randomSeed
-      value: 1759395141
-      objectReference: {fileID: 0}
-    - target: {fileID: 198351869230485264, guid: d6424a67a728df1458068deb279b87f8,
-        type: 2}
-      propertyPath: InitialModule.gravityModifier.scalar
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 198351869230485264, guid: d6424a67a728df1458068deb279b87f8,
-        type: 2}
-      propertyPath: lengthInSec
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198351869230485264, guid: d6424a67a728df1458068deb279b87f8,
-        type: 2}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 199109074995641364, guid: d6424a67a728df1458068deb279b87f8,
-        type: 2}
-      propertyPath: m_MaxParticleSize
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114151073644908200, guid: d6424a67a728df1458068deb279b87f8,
-        type: 2}
-      propertyPath: Target
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 114433608781354172, guid: d6424a67a728df1458068deb279b87f8,
         type: 2}
       propertyPath: TeamNumber
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114433608781354172, guid: d6424a67a728df1458068deb279b87f8,
-        type: 2}
-      propertyPath: Health
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 198799714202680368, guid: d6424a67a728df1458068deb279b87f8,
-        type: 2}
-      propertyPath: randomSeed
-      value: -941069534
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d6424a67a728df1458068deb279b87f8, type: 2}
