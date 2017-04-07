@@ -8,24 +8,24 @@ public class Attack : MonoBehaviour
     private int selfTeam;
     private IEnumerator attackCoroutine;
     private bool CR_Running;
-	private Animator unitAnimator;
+    private Animator unitAnimator;
 
     public GameObject Target;
     private Unit TargetUnit;
     public float Range;
     public float Damage;
     public float RateOfFire;
+    public float AngleOfFire;
     public bool DoChaseTarget;
 
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         selfUnit = this.GetComponent<Unit>();
-		unitAnimator = this.GetComponent<Animator> ();
+        unitAnimator = this.GetComponent<Animator>();
         if (selfUnit != null)
             selfTeam = selfUnit.TeamNumber;
-
     }
 
     // Attacking a GameObject (must contain a Unit)
@@ -45,6 +45,10 @@ public class Attack : MonoBehaviour
     // Attacking a Unit directly
     public bool AttackTarget(Unit _targetUnit)
     {
+        // Check if we're already attacking this unit, and if so ignore command
+        if (_targetUnit == TargetUnit)
+            return true;
+
         // If we cannot attack this target for some reason, return false
         if (_targetUnit.TeamNumber == this.selfTeam)
         {
@@ -60,7 +64,18 @@ public class Attack : MonoBehaviour
         attackCoroutine = AttackMove();
         StartCoroutine(attackCoroutine);
 
-        return false;
+        return true;
+    }
+
+    // This method is called whenever the attack /actually/ happens
+    // As such it can be overridden by a class inheriting from Attack.
+    protected virtual void DealDamageToTarget(Unit _targetUnit, float Dmg=float.NaN)
+    {
+        // If we weren't passed a special damage number, use default damage
+        Dmg = Dmg == float.NaN ? Damage : Dmg;
+
+        // By default just do damage to the target
+        TargetUnit.DoDamage(Dmg);
     }
 
     IEnumerator AttackMove()
@@ -71,17 +86,43 @@ public class Attack : MonoBehaviour
         // AND 
         // (we can chase the target OR it's in our range)
         while (Target != null &&
-            (DoChaseTarget || 
-            (this.transform.position -Target.transform.position).sqrMagnitude
+            (DoChaseTarget ||
+            (this.transform.position - Target.transform.position).sqrMagnitude
                 <= Range))
         {
+            //Vector3 dist = Target.transform.position - this.transform.position;
+            Vector2 __pos = new Vector2(this.transform.position.x, 
+                this.transform.position.z);
+            Vector2 __targ = new Vector2(Target.transform.position.x, 
+                Target.transform.position.z);
+
+            // Get vector (on XZ plane) between us and target
+            Vector2 dist = __targ - __pos;
+
+            // Get forward dir
+            Vector2 forwardDir = new Vector2(this.transform.forward.x,
+                this.transform.forward.z);
+
+
+            ///////               TURN               ///////
+            if (AngleOfFire != 0 && 
+                Vector2.Angle(forwardDir, dist) > AngleOfFire)
+            {
+                // Are we moving?
+                if (selfUnit.IsMoveStopped())
+                {
+                    // Turn the unit towards the target
+                    selfUnit.TurnToLookAt(Target.transform.position);
+                }
+            }
+
+
             ///////               MOVE               ///////
             // If we're not in range, then move towards the unit
-            Vector3 dist = Target.transform.position - this.transform.position;
             if (dist.sqrMagnitude > Range * Range)
             {
-				// deactivate attack animation if active
-				unitAnimator.SetBool("Attacking", false);
+                // deactivate attack animation if active
+                unitAnimator.SetBool("Attacking", false);
 
                 // If we can't chase then cancel
                 if (!DoChaseTarget)
@@ -94,23 +135,35 @@ public class Attack : MonoBehaviour
                 }
             }
             ///////               ATTACK               ///////
-            else
+            else if (AngleOfFire == 0 || 
+                Vector2.Angle(forwardDir, dist) < AngleOfFire)
             {
-                // Deal damage to the unit, modified by ryhthm if applicable
+                // Deal damage to the unit, modified by rhythm if applicable
 				float dmg = Damage;
 				if (GetComponentInParent<Unit> ().TeamNumber == 0 && Rhythm.Instance ().IsOnUpBeat ()) {
 					dmg *= Rhythm.Instance ().GetDamageMultiplier ();
 				}
 
-				TargetUnit.DoDamage(dmg);
+				// Deal damage to the unit (based on the Unit's interpretation
+                // of the DealDamageToTarget function)
+                DealDamageToTarget(TargetUnit, dmg);
 
+                // TODO: Implement this properly with the virtual function
                 // trigger attack animation
-				unitAnimator.SetBool("Attacking", true);
+                unitAnimator.SetBool("Attacking", true);
+
+                // Wait for our RoF to reset
+                yield return new WaitForSeconds(RateOfFire);
+            }
+            else
+            {
+                // Halt movement
+                selfUnit.MoveStop();
             }
 
 
-            // Wait for our RoF to reset
-            yield return new WaitForSeconds(RateOfFire);
+            // Wait for 0.01 seconds
+            yield return new WaitForSeconds(0.01f);
         }
 
         // We're done attacking
