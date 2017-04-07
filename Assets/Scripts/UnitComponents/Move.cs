@@ -8,6 +8,7 @@ public class Move : MonoBehaviour
     private Vector3 forwardDir;
     private Plane xzPlane;
 	private Animator unitAnimator;
+    private bool IsAttackMove;
 
     public float Speed;
     public float TurnSpeed;
@@ -27,13 +28,13 @@ public class Move : MonoBehaviour
     }
 
     // Tell the unit to move to a specific location
-    public bool MoveCommand(Transform moveTo)
+    public bool MoveCommand(Transform moveTo, bool isAttackMove)
     {
-        return MoveCommand(moveTo.position);
+        return MoveCommand(moveTo.position, isAttackMove);
     }
 
     // Tell the unit to move to a specific location
-    public bool MoveCommand(Vector3 moveTo)
+    public bool MoveCommand(Vector3 moveTo, bool isAttackMove)
     {
         // Maybe do some checks to see if it is reachable territory
         // if moveTo is not reachable, return false
@@ -41,6 +42,7 @@ public class Move : MonoBehaviour
         // If we are a Unit
         if (selfUnit != null)
         {
+            IsAttackMove = isAttackMove;
             TargetLocation = moveTo;
             return true;
         }
@@ -128,4 +130,14 @@ public class Move : MonoBehaviour
 			unitAnimator.SetFloat ("Speed", 0f);
 		}
 	}
+
+    public void StopAttackMove()
+    {
+        IsAttackMove = false;
+    }
+
+    public bool GetIsAttackMove()
+    {
+        return IsAttackMove;
+    }
 }

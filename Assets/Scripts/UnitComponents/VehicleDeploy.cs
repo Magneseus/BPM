@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class VehicleDeploy : MonoBehaviour
@@ -21,11 +23,14 @@ public class VehicleDeploy : MonoBehaviour
     private float baseAttackRange;
     private float baseAttackRoF;
 
+    private Object BaseInfantryObject;
+    private Object BaseTankObject;
+
 	// Use this for initialization
 	void Start ()
     {
         // Get the move script and base values
-        moveScript = this.GetComponent<Move>();
+        moveScript = gameObject.GetComponent<Move>();
         if (moveScript != null)
         {
             baseMoveSpeed = moveScript.Speed;
@@ -33,7 +38,7 @@ public class VehicleDeploy : MonoBehaviour
         }
 
         // Get the attack script and base values
-        attackScript = this.GetComponent<Attack>();
+        attackScript = gameObject.GetComponent<Attack>();
         if (attackScript != null)
         {
             baseAttackDamage = attackScript.Damage;
@@ -81,10 +86,15 @@ public class VehicleDeploy : MonoBehaviour
                 }
             }
         }
-	}
+    }
 
     public bool ToggleDeploy()
     {
+        // Quick initialization for enemy avatar, since start isn't called yet
+        if (moveScript == null && attackScript == null)
+        {
+            Start();
+        }
         // If we're already switching we can't switch again
         if (deployTimer != 0.0f)
             return false;

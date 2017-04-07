@@ -100,7 +100,6 @@ GameObject:
   m_Component:
   - component: {fileID: 64617750}
   - component: {fileID: 64617749}
-  - component: {fileID: 64617748}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -108,27 +107,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &64617748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 64617747}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ee16ce07d791b149bae54804b4d447b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TeamNumber: 0
-  avatarPrefab: {fileID: 0}
-  healingStationPrefab: {fileID: 0}
-  bunkerPrefab: {fileID: 0}
-  infantryPrefab: {fileID: 0}
-  armoredVehiclePrefab: {fileID: 0}
-  selectedUnits:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &64617749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,8 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa07def3c81bd9c4186ea25c61497977, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SelectionCirclePrefab: {fileID: 166266, guid: 76dcbc06f5bc7dd4ea9aeaf5b3759686,
-    type: 2}
+  SelectionCirclePrefab: {fileID: 0}
   CurrentCommand: 0
   RegularCursorSprite: {fileID: 0}
   AttackCursorSprite: {fileID: 0}
@@ -344,7 +321,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4491559680755310, guid: 062a6ef21cc846449a2806422e268f79, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 062a6ef21cc846449a2806422e268f79, type: 2}
@@ -386,7 +363,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4775753924607686, guid: 958b34a3824943e4e8b07dec4a237f6a, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 958b34a3824943e4e8b07dec4a237f6a, type: 2}
@@ -419,7 +396,6 @@ Transform:
   - {fileID: 394927201}
   - {fileID: 970794150}
   - {fileID: 1963302478}
-  - {fileID: 848051545}
   - {fileID: 992699378}
   - {fileID: 141523757}
   m_Father: {fileID: 0}
@@ -636,7 +612,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1252397977}
+      - m_Target: {fileID: 0}
         m_MethodName: UnloadBunker
         m_Mode: 1
         m_Arguments:
@@ -927,92 +903,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1001 &848051544
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 274536264}
-    m_Modifications:
-    - target: {fileID: 4031370663450258, guid: d6424a67a728df1458068deb279b87f8, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 9.57
-      objectReference: {fileID: 0}
-    - target: {fileID: 4031370663450258, guid: d6424a67a728df1458068deb279b87f8, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4031370663450258, guid: d6424a67a728df1458068deb279b87f8, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -4.63
-      objectReference: {fileID: 0}
-    - target: {fileID: 4031370663450258, guid: d6424a67a728df1458068deb279b87f8, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4031370663450258, guid: d6424a67a728df1458068deb279b87f8, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4031370663450258, guid: d6424a67a728df1458068deb279b87f8, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4031370663450258, guid: d6424a67a728df1458068deb279b87f8, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4031370663450258, guid: d6424a67a728df1458068deb279b87f8, type: 2}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1182939752401736, guid: d6424a67a728df1458068deb279b87f8, type: 2}
-      propertyPath: m_Name
-      value: EnemyTank
-      objectReference: {fileID: 0}
-    - target: {fileID: 114433608781354172, guid: d6424a67a728df1458068deb279b87f8,
-        type: 2}
-      propertyPath: TeamNumber
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114433608781354172, guid: d6424a67a728df1458068deb279b87f8,
-        type: 2}
-      propertyPath: Health
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 199109074995641364, guid: d6424a67a728df1458068deb279b87f8,
-        type: 2}
-      propertyPath: m_MaxParticleSize
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198351869230485264, guid: d6424a67a728df1458068deb279b87f8,
-        type: 2}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198799714202680368, guid: d6424a67a728df1458068deb279b87f8,
-        type: 2}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198351869230485264, guid: d6424a67a728df1458068deb279b87f8,
-        type: 2}
-      propertyPath: randomSeed
-      value: -1867546298
-      objectReference: {fileID: 0}
-    - target: {fileID: 198799714202680368, guid: d6424a67a728df1458068deb279b87f8,
-        type: 2}
-      propertyPath: randomSeed
-      value: -1719257383
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: d6424a67a728df1458068deb279b87f8, type: 2}
-  m_IsPrefabParent: 0
---- !u!4 &848051545 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4031370663450258, guid: d6424a67a728df1458068deb279b87f8,
-    type: 2}
-  m_PrefabInternal: {fileID: 848051544}
 --- !u!1 &887610844
 GameObject:
   m_ObjectHideFlags: 0
@@ -1089,7 +979,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1252397977}
+      - m_Target: {fileID: 64617749}
         m_MethodName: DeployAvatar
         m_Mode: 1
         m_Arguments:
@@ -1340,7 +1230,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 64617749}
         m_MethodName: SetMouseCommand
         m_Mode: 5
         m_Arguments:
@@ -1398,8 +1288,8 @@ GameObject:
   - component: {fileID: 1252397980}
   - component: {fileID: 1252397979}
   - component: {fileID: 1252397978}
-  - component: {fileID: 1252397977}
   - component: {fileID: 1252397983}
+  - component: {fileID: 1252397977}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1415,14 +1305,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1252397976}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa07def3c81bd9c4186ea25c61497977, type: 3}
+  m_Script: {fileID: 11500000, guid: 496bbf744c26f334096ac42f454d8d5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SelectionCirclePrefab: {fileID: 166266, guid: 76dcbc06f5bc7dd4ea9aeaf5b3759686,
-    type: 2}
-  CurrentCommand: 0
-  RegularCursorSprite: {fileID: 0}
-  AttackCursorSprite: {fileID: 0}
 --- !u!81 &1252397978
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1666,7 +1551,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: Move
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1463761672
@@ -2030,6 +1915,11 @@ Prefab:
     - target: {fileID: 4363149351066812, guid: ab2e12e1ac85c604ca1fb6eca89688f1, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198888077728120506, guid: ab2e12e1ac85c604ca1fb6eca89688f1,
+        type: 2}
+      propertyPath: randomSeed
+      value: 172192249
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ab2e12e1ac85c604ca1fb6eca89688f1, type: 2}

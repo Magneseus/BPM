@@ -54,6 +54,14 @@ public class Unit : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        #region Attack Moving
+
+	    if (moveScript != null && moveScript.GetIsAttackMove())
+	    {
+	        LockOnClosestEnemyUnit();
+	    }
+        #endregion
+
         #region Health checks
         if (gameObject.name.Contains("Tank"))
         {
@@ -115,54 +123,30 @@ public class Unit : MonoBehaviour
         // TODO: Assuming player's team is always 0 atm
 	    if (TeamNumber > 0)
 	    {
-	        if (!attackScript.HasTarget())
-	        {
-	            var hitColliders = Physics.OverlapSphere(transform.position, EnemyDetectionRadius);
-	            if (hitColliders.Any())
-	            {
-	                GameObject closestTarget = null;
-	                float smallestDistance = 99999;
-	                foreach (var targetGameObject in hitColliders)
-	                {
-	                    var unitComponent = targetGameObject.gameObject.GetComponent<Unit>();
-	                    if (unitComponent != null && unitComponent.TeamNumber != TeamNumber)
-	                    {
-	                        var distanceToTarget = Vector3.Distance(targetGameObject.transform.position, gameObject.transform.position);
-	                        if (closestTarget == null || distanceToTarget < smallestDistance)
-	                        {
-	                            closestTarget = targetGameObject.gameObject;
-	                            smallestDistance = distanceToTarget;
-	                        }
-	                    }
-	                }
-
-                    if (closestTarget != null)
-	                    attackScript.AttackTarget(closestTarget);
-	            }
-	        }
-	    }
+            LockOnClosestEnemyUnit();
+        }
         #endregion
     }
 
     // Tell the unit to move to a specific location
-    public bool MoveCommand(Transform moveTo)
+    public bool MoveCommand(Transform moveTo, bool isAttackMove = false)
     {
         // If we don't have a move script then return false
         if (moveScript == null)
             return false;
 
         // Otherwise try and move
-        return moveScript.MoveCommand(moveTo);
+        return moveScript.MoveCommand(moveTo, isAttackMove);
     }
 
-    public bool MoveCommand(Vector3 moveTo)
+    public bool MoveCommand(Vector3 moveTo, bool isAttackMove = false)
     {
         // If we don't have a move script then return false
         if (moveScript == null)
             return false;
 
         // Otherwise try and move
-        return moveScript.MoveCommand(moveTo);
+        return moveScript.MoveCommand(moveTo, isAttackMove);
     }
 
     // Give this unit a command (eg. "attack", "ability1", etc)
@@ -178,12 +162,20 @@ public class Unit : MonoBehaviour
             // Attack needs a GameObject
             case UIUtils.CommandType.Attack:
                 if (attackScript != null && gameObject != null)
+                {
+                    moveScript.StopAttackMove();
                     return attackScript.AttackTarget(go);
+                }
                 else
                     return false;
             case UIUtils.CommandType.StopAttack:
                 if (attackScript != null && gameObject != null)
+                {
                     attackScript.Stop();
+                    moveScript.StopAttackMove();
+                }
+                else
+                    return false;
                 break;
             //case "coolability1":
             //    
@@ -205,6 +197,35 @@ public class Unit : MonoBehaviour
     public void DoHeal(float healDealt)
     {
         Health = Mathf.Min(MaxHealth, Health + healDealt);
+    }
+
+    private void LockOnClosestEnemyUnit()
+    {
+        if (!attackScript.HasTarget())
+        {
+            var hitColliders = Physics.OverlapSphere(transform.position, EnemyDetectionRadius);
+            if (hitColliders.Any())
+            {
+                GameObject closestTarget = null;
+                float smallestDistance = 99999;
+                foreach (var targetGameObject in hitColliders)
+                {
+                    var unitComponent = targetGameObject.gameObject.GetComponent<Unit>();
+                    if (unitComponent != null && unitComponent.TeamNumber != TeamNumber)
+                    {
+                        var distanceToTarget = Vector3.Distance(targetGameObject.transform.position, gameObject.transform.position);
+                        if (closestTarget == null || distanceToTarget < smallestDistance)
+                        {
+                            closestTarget = targetGameObject.gameObject;
+                            smallestDistance = distanceToTarget;
+                        }
+                    }
+                }
+
+                if (closestTarget != null)
+                    attackScript.AttackTarget(closestTarget);
+            }
+        }
     }
 
 }

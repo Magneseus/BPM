@@ -16,6 +16,7 @@ public class Controller : MonoBehaviour
 {
     // Reference to the player army
     Army playerArmy;
+    Army EnemyArmy;
     private Vector2 MouseOver;
     private bool isSelecting;
     public GameObject SelectionCirclePrefab;
@@ -31,6 +32,10 @@ public class Controller : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         isSelecting = false;
         playerArmy = gameObject.AddComponent<Army>();
+        playerArmy.TeamNumber = 0;
+
+        EnemyArmy = gameObject.AddComponent<Army>();
+        EnemyArmy.TeamNumber = 1;
 
         UIUtils.SetUnloadButtonVisiblity(false);
         UIUtils.SetDeployButtonVisibility(false);
@@ -119,7 +124,6 @@ public class Controller : MonoBehaviour
 
         #endregion
 
-        UIUtils.ScrollCamera(transform);
         UIUtils.UpdatePlayerCommand(CurrentCommand);
 
         #region Mouse Commands
@@ -160,9 +164,23 @@ public class Controller : MonoBehaviour
 
                             break;
                         case UIUtils.CommandType.Attack:
-                            foreach (var unit in playerArmy.selectedUnits)
+                            var unitComponent = hitGameObject.GetComponent<Unit>();
+                            if (unitComponent != null)
                             {
-                                unit.GiveCommand(UIUtils.CommandType.Attack, hitGameObject, hitGameObject.transform);
+                                foreach (var unit in playerArmy.selectedUnits)
+                                {
+                                    unit.GiveCommand(UIUtils.CommandType.Attack, hitGameObject, hitGameObject.transform);
+                                }
+                            }
+                            else
+                            {
+                                var attackMovePoint = hit.point;
+                                foreach (var unit in playerArmy.selectedUnits)
+                                {
+                                    unit.GiveCommand(UIUtils.CommandType.StopAttack, hitGameObject,
+                                        hitGameObject.transform);
+                                    unit.MoveCommand(attackMovePoint, true);
+                                }
                             }
                             break;
                     }

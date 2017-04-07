@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - Infantry
   - VehicleDeploy
+  - Tank
   layers:
   - Default
   - TransparentFX

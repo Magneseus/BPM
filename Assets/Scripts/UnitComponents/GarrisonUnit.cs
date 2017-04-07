@@ -31,7 +31,7 @@ public class GarrisonUnit : MonoBehaviour
         // Send a move command to the bunker
         if (moveScript != null)
         {
-            moveScript.MoveCommand(targetBunker.transform.position);
+            moveScript.MoveCommand(targetBunker.transform.position, false);
         }
         // Otherwise just return
         else

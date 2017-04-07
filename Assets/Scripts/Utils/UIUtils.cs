@@ -6,7 +6,7 @@ namespace Assets.Scripts.Utils
     public static class UIUtils {
 
         static Texture2D _whiteTexture;
-        private static float cameraSpeed = 0.75f;
+        private static float cameraSpeed = 0.4f;
         private static int scrollRectangleSize = 40;
         public static Rect ScreenRecDown = new Rect(0, 0, Screen.width, scrollRectangleSize);
         public static Rect ScreenRecUp = new Rect(0, Screen.height - scrollRectangleSize, Screen.width, scrollRectangleSize);
