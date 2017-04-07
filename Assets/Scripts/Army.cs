@@ -90,9 +90,10 @@ public class Army : MonoBehaviour
                 {
                     // Make sure it's not spawning on top of another unit
                     var spawnTransform = new GameObject().transform;
-                    spawnTransform.position = LeaderAvatar.transform.position + Vector3.back;
+                    spawnTransform.position = LeaderAvatar.transform.position + new Vector3(1.0f, 0, -1.0f);
                     var isValidSpawnPosition = false;
 
+                    int numOfLoops = 0;
                     do
                     {
                         var hitColliders = Physics.OverlapSphere(spawnTransform.position, 0.2f).Where(h => h.tag == "Infantry" || h.tag == "Tank" || h.tag == "VehicleDeploy").ToList();
@@ -130,7 +131,8 @@ public class Army : MonoBehaviour
                         {
                             isValidSpawnPosition = true;
                         }
-                    } while (!isValidSpawnPosition);
+                        numOfLoops++;
+                    } while (!isValidSpawnPosition && numOfLoops < 5);
 
 
                     var rnd = new System.Random();
@@ -158,7 +160,7 @@ public class Army : MonoBehaviour
         #region Enemy Army AI
         if (TeamNumber != 0)
         {
-            /* Avatar AI */
+            #region Avatar AI
             var hitColliders = Physics.OverlapSphere(LeaderAvatar.transform.position, 4).Where(h => h.tag == "Infantry" || h.tag == "Tank").ToList();
 
             if (hitColliders.Any())
@@ -192,17 +194,35 @@ public class Army : MonoBehaviour
                 if (!vehicleDeployScript.IsDeployed())
                     vehicleDeployScript.ToggleDeploy();
             }
+            #endregion
 
-            /* Attacking unit AI */
+            #region Attacking Unit AI
+            // Consider attacking if the AI has more than 5 units
             if (armyUnits.Count > 5)
             {
                 var allAttackUnits = armyUnits.Where(a => a.tag == "Infantry" || a.tag == "Tank");
-                foreach (var unit in allAttackUnits)
+
+                var playerUnitHitColliders = Physics.OverlapSphere(allAttackUnits.FirstOrDefault().transform.position, 7).Where(h => h.tag == "Infantry" || h.tag == "Tank").ToList();
+
+                // If the Player has less than 1.2 times the AI's units currently visible to the first unit in the AI's army
+                if ((float) playerUnitHitColliders.Count/armyUnits.Count < 1.2)
                 {
-                    var playerAvatar = GameObject.Find("Avatar");
-                    unit.MoveCommand(playerAvatar.transform.position, true);
+                    foreach (var unit in allAttackUnits)
+                    {
+                        var playerAvatar = GameObject.Find("Avatar");
+                        unit.MoveCommand(playerAvatar.transform.position, true);
+                    }
                 }
+                else
+                {
+                    foreach (var unit in allAttackUnits)
+                    {
+                        unit.MoveCommand(LeaderAvatar.transform.position, false);
+                    }
+                }
+                
             }
+            #endregion
         }
         #endregion
     }

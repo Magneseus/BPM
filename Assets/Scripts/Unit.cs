@@ -247,7 +247,8 @@ public class Unit : MonoBehaviour
                     var unitComponent = targetGameObject.gameObject.GetComponent<Unit>();
                     if (unitComponent != null && unitComponent.TeamNumber != TeamNumber)
                     {
-                        var distanceToTarget = Vector3.Distance(targetGameObject.transform.position, gameObject.transform.position);
+                        var distanceToTarget = Vector3.Distance(targetGameObject.transform.position,
+                            gameObject.transform.position);
                         if (closestTarget == null || distanceToTarget < smallestDistance)
                         {
                             closestTarget = targetGameObject.gameObject;
@@ -260,7 +261,7 @@ public class Unit : MonoBehaviour
                     attackScript.AttackTarget(closestTarget);
             }
         }
-
+    }
 
     public void TurnToLookAt(Vector3 _TargetToLookAt)
     {
