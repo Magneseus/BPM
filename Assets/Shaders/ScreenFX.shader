@@ -53,6 +53,7 @@
 			{
 				fixed4 col = tex2D(_MainTex, i.uv);
 				float pi = 3.14159;
+				float maxDistort = 0.6f;
 
 				// ===========================================
 				// COLOR PULSING
@@ -65,16 +66,18 @@
 				centerScreen.y = _ScreenSize.y/2;
 				float yscale = _CameraAngle.x / 90;
 				float difference = length(i.vertex - centerScreen);
+				float distort = (maxDistort * (centerScreen.y - i.vertex.y) / (_ScreenSize.y/2)) + 1;
 				float radius = centerScreen.x * _PulseScale / 2;
 				difference -= _BeatTime * centerScreen.x * pi * (0.65 - _BeatTime);
 
 				fixed4 pink = fixed4(255, 80, 200, 0);
 				fixed4 indigo = fixed4(100, 50, 255, 0);
+				//float maxColor = 0.0005;
 				float maxColor = 0.0005;
 				pink *= maxColor;
 				indigo *= maxColor;
 
-				float sinCurve = sin(difference/radius);
+				float sinCurve = sin((difference*distort)/radius);
 				float colorAmount = abs(sinCurve);
 
 				if(sinCurve > 0){
