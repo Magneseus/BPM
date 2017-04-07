@@ -6,7 +6,9 @@ namespace Assets.Scripts.Utils
     public static class UIUtils {
 
         static Texture2D _whiteTexture;
-        private static float cameraSpeed = 0.4f;
+        private static float cameraSpeed = 0f;
+		private static float maxCameraSpeed = 0.25f;
+		private static float cameraAccel = 0.025f;
         private static int scrollRectangleSize = 40;
         public static Rect ScreenRecDown = new Rect(0, 0, Screen.width, scrollRectangleSize);
         public static Rect ScreenRecUp = new Rect(0, Screen.height - scrollRectangleSize, Screen.width, scrollRectangleSize);
@@ -86,17 +88,34 @@ namespace Assets.Scripts.Utils
 
         public static void ScrollCamera(Transform cameraTransform)
         {
-            if (ScreenRecDown.Contains(Input.mousePosition))
-                cameraTransform.Translate(0, 0, -cameraSpeed, Space.World);
+			bool cameraMoving = false;
 
-            if (ScreenRecUp.Contains(Input.mousePosition))
-                cameraTransform.Translate(0, 0, cameraSpeed, Space.World);
+			if (ScreenRecDown.Contains (Input.mousePosition)) {
+				cameraMoving = true;
+				cameraTransform.Translate (0, 0, -cameraSpeed, Space.World);
+			}
 
-            if (ScreenRecLeft.Contains(Input.mousePosition))
-                cameraTransform.Translate(-cameraSpeed, 0, 0, Space.World);
+			if (ScreenRecUp.Contains (Input.mousePosition)) {
+				cameraMoving = true;
+				cameraTransform.Translate (0, 0, cameraSpeed, Space.World);
+			}
 
-            if (ScreenRecRight.Contains(Input.mousePosition))
-                cameraTransform.Translate(cameraSpeed, 0, 0, Space.World);
+			if (ScreenRecLeft.Contains (Input.mousePosition)) {
+				cameraMoving = true;
+				cameraTransform.Translate (-cameraSpeed, 0, 0, Space.World);
+			}
+
+			if (ScreenRecRight.Contains (Input.mousePosition)) {
+				cameraMoving = true;
+				cameraTransform.Translate (cameraSpeed, 0, 0, Space.World);
+			}
+
+			if (cameraMoving && cameraSpeed + cameraAccel <= maxCameraSpeed)
+				cameraSpeed += cameraAccel;
+			else if (!cameraMoving && cameraSpeed - cameraAccel > 0)
+				cameraSpeed -= cameraAccel;
+			else if (!cameraMoving)
+				cameraSpeed = 0f;
         }
 
         public static void UpdatePlayerCommand(CommandType command)
