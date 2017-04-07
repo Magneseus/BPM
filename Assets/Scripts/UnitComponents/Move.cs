@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Move : MonoBehaviour
 {
@@ -8,7 +9,9 @@ public class Move : MonoBehaviour
     private Vector3 forwardDir;
     private Plane xzPlane;
 	private Animator unitAnimator;
+    private NavMeshAgent unitNav;
 
+    public float Acceleration;
     public float Speed;
     public float TurnSpeed;
     public float GoalTolerance = 0.1f;
@@ -16,6 +19,7 @@ public class Move : MonoBehaviour
 	public float AnimationStopMoveSpeed = 0.15f;
 
     public Vector3 TargetLocation = new Vector3(float.MaxValue, 0, 0);
+    private NavMeshPath TargetPath;
 
 
     // Use this for initialization
@@ -24,6 +28,17 @@ public class Move : MonoBehaviour
         selfUnit = this.GetComponent<Unit>();
         forwardDir = this.transform.forward;
 		unitAnimator = this.GetComponent<Animator> ();
+        unitNav = this.GetComponent<NavMeshAgent>();
+        TargetPath = null;
+
+        // Tell the unit nav to not move on it's own
+        unitNav.updatePosition = false;
+
+        // Set the unit nav movement vars
+        unitNav.speed = Speed;
+        unitNav.acceleration = Acceleration;
+        unitNav.angularSpeed = TurnSpeed;
+        unitNav.stoppingDistance = GoalTolerance;
     }
 
     // Tell the unit to move to a specific location
@@ -35,14 +50,32 @@ public class Move : MonoBehaviour
     // Tell the unit to move to a specific location
     public bool MoveCommand(Vector3 moveTo)
     {
-        // Maybe do some checks to see if it is reachable territory
-        // if moveTo is not reachable, return false
-
         // If we are a Unit
         if (selfUnit != null)
         {
-            TargetLocation = moveTo;
-            return true;
+            // Check the NavMesh to see if it's a valid position
+            NavMeshHit nvh;
+            if (NavMesh.SamplePosition(moveTo, out nvh, 1.0f, NavMesh.AllAreas))
+            {
+                // New Path
+                NavMeshPath newPath = new NavMeshPath();
+
+                // Generate a path, if one exists
+                if (unitNav.CalculatePath(nvh.position, newPath))
+                {
+                    if (newPath.status == NavMeshPathStatus.PathComplete)
+                    {
+                        // Set the goal
+                        TargetLocation = moveTo;
+
+                        // Set the path
+                        TargetPath = newPath;
+                        unitNav.SetPath(TargetPath);
+
+                        return true;
+                    }
+                }
+            }
         }
 
         return false;
@@ -52,39 +85,77 @@ public class Move : MonoBehaviour
     public void Stop()
     {
         TargetLocation = new Vector3(float.MaxValue, 0, 0);
+        unitNav.ResetPath();
+        TargetPath = null;
     }
 
     // Are we moving?
     public bool IsStopped()
     {
-        return TargetLocation.x == float.MaxValue;
+        if (!unitNav.pathPending)
+        {
+            if (unitNav.remainingDistance <= unitNav.stoppingDistance)
+            {
+                if (!unitNav.hasPath || unitNav.velocity.sqrMagnitude == 0f)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return TargetLocation.x == float.MaxValue || TargetPath == null;
     }
 
+    #region PurePathfindingMovement
+    void UpdateOld()
+    {
+        float turnspd = TurnSpeed;
+        float spd = Speed;
+
+        // Update speeds based on rhythm
+        if (GetComponentInParent<Unit>().TeamNumber == 0 && Rhythm.Instance().IsOnDownBeat())
+        {
+            turnspd *= Rhythm.Instance().GetMoveMultiplier();
+        }
+        if (GetComponentInParent<Unit>().TeamNumber == 0 && Rhythm.Instance().IsOnDownBeat())
+        {
+            spd *= Rhythm.Instance().GetMoveMultiplier();
+        }
+
+        unitNav.speed = spd;
+        unitNav.angularSpeed = turnspd;
+
+        // Update Animator Values
+        if (IsStopped())
+        {
+            unitAnimator.SetFloat("Speed", 0);
+        }
+        else
+        {
+            unitAnimator.SetFloat("Speed", spd);
+        }
+    }
+    #endregion
+
+    #region OldMovement
     // Update is called once per frame
     void FixedUpdate ()
     {
-
         // If we are a unit and we have a target to move to
-		if (selfUnit != null && !this.IsStopped()) {
-			// TODO: Change this so that the vectors aren't projected onto the
-			//       plane, so that we can have vertical movement as well
+		if (selfUnit != null && !this.IsStopped())
+        {
+            // Get the position we need to go to
+            Vector3 targ = unitNav.steeringTarget;
 
 			// Get the new forward dir
 			forwardDir = this.transform.forward;
 
-			// Calculate move vector and project onto the movement plane
+			// Calculate move vector
 			Vector3 dist = TargetLocation - this.transform.position;
+            Vector3 moveDir = (targ - this.transform.position).normalized;
 
-			// TODO: Make movement a non-2d operation
-			dist.y = 0.0f;
-
-			Vector3 moveDir = Vector3.ProjectOnPlane (dist, Vector3.up).normalized;
-
-			// Get the current forward vector and project on the movement plane
-			Vector3 curDir = Vector3.ProjectOnPlane (forwardDir, Vector3.up).normalized;
-
-
-			// TODO: Add proper path finding
+			// Get the current forward vector 
+			Vector3 curDir = forwardDir.normalized;
 
 
 			// Rotate towards the correct orientation
@@ -119,14 +190,17 @@ public class Move : MonoBehaviour
 
 
 			// End goal
-			if (dist.sqrMagnitude < GoalTolerance * GoalTolerance) {
+			if (dist.sqrMagnitude < GoalTolerance * GoalTolerance)
+            {
 				Stop ();
 			}
 
 
 			// Set the new values
 			this.transform.position = newPos;
-			this.transform.rotation = newOrient;
+            unitNav.nextPosition = newPos;
+
+            //this.transform.rotation = newOrient;
 
 			// Update Animator Values
 			unitAnimator.SetFloat ("Speed", spd);
@@ -134,4 +208,5 @@ public class Move : MonoBehaviour
 			unitAnimator.SetFloat ("Speed", 0f);
 		}
 	}
+    #endregion
 }
