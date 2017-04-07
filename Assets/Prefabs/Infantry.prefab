@@ -926,6 +926,7 @@ MonoBehaviour:
   Range: 5
   Damage: 1
   RateOfFire: 1
+  AngleOfFire: 0
   DoChaseTarget: 1
 --- !u!114 &114282180796920216
 MonoBehaviour:
@@ -980,7 +981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 1.5
-  TurnSpeed: 180
+  TurnSpeed: 500
   GoalTolerance: 0.1
   AnimationStartMoveSpeed: 0.15
   AnimationStopMoveSpeed: 0.15
