@@ -16,8 +16,8 @@ public class Army : MonoBehaviour
     // Which team does this army belong to
     public int TeamNumber;
 
-    public float DeployCooldown = 5.0f;
-    public float EnemyDeployCooldown = 10.0f;
+    public float DeployCooldown = 10.0f;
+    public float EnemyDeployCooldown = 2f;
 
 
     ////     PREFABS     ////
@@ -66,7 +66,7 @@ public class Army : MonoBehaviour
             AddUnit(avatarPrefab, newTransform, "EnemyAvatar");
 
             LeaderAvatar = GameObject.Find("EnemyAvatar");
-            LeaderAvatar.transform.position = new Vector3(7, 0, -7);
+            LeaderAvatar.transform.position = new Vector3(9, 0, -9);
 
             vehicleDeployScript = LeaderAvatar.GetComponent<VehicleDeploy>();
         }
@@ -80,7 +80,14 @@ public class Army : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if (vehicleDeployScript != null)
+	    foreach (var unit in armyUnits)
+	    {
+	        var index = armyUnits.IndexOf(unit);
+	        if (unit == null)
+	            armyUnits.RemoveAt(index);
+	    }
+
+        if (vehicleDeployScript != null && LeaderAvatar != null)
         {
             if (vehicleDeployScript.IsDeployed())
             {
@@ -90,7 +97,8 @@ public class Army : MonoBehaviour
                 {
                     // Make sure it's not spawning on top of another unit
                     var spawnTransform = new GameObject().transform;
-                    spawnTransform.position = LeaderAvatar.transform.position + new Vector3(1.0f, 0, -1.0f);
+                    var spawnDisplacement = new Vector3(-1.5f, 0, 1.5f);
+                    spawnTransform.position = LeaderAvatar.transform.position + spawnDisplacement;
                     var isValidSpawnPosition = false;
 
                     int numOfLoops = 0;
@@ -158,7 +166,7 @@ public class Army : MonoBehaviour
         }
 
         #region Enemy Army AI
-        if (TeamNumber != 0)
+        if (TeamNumber != 0 && LeaderAvatar != null)
         {
             #region Avatar AI
             var hitColliders = Physics.OverlapSphere(LeaderAvatar.transform.position, 4).Where(h => h.tag == "Infantry" || h.tag == "Tank").ToList();
@@ -197,31 +205,50 @@ public class Army : MonoBehaviour
             #endregion
 
             #region Attacking Unit AI
-            // Consider attacking if the AI has more than 5 units
-            if (armyUnits.Count > 5)
+            var allAttackUnits = armyUnits.Where(a => a.name != "EnemyAvatar").ToList();
+            if (allAttackUnits.Any())
             {
-                var allAttackUnits = armyUnits.Where(a => a.tag == "Infantry" || a.tag == "Tank");
+                var firstUnit = allAttackUnits.FirstOrDefault(u => u != null);
 
-                var playerUnitHitColliders = Physics.OverlapSphere(allAttackUnits.FirstOrDefault().transform.position, 7).Where(h => h.tag == "Infantry" || h.tag == "Tank").ToList();
-
-                // If the Player has less than 1.2 times the AI's units currently visible to the first unit in the AI's army
-                if ((float) playerUnitHitColliders.Count/armyUnits.Count < 1.2)
+                if (firstUnit != null)
                 {
-                    foreach (var unit in allAttackUnits)
+                    var playerUnitHitColliders =
+                        Physics.OverlapSphere(firstUnit.transform.position, 7)
+                            .Where(h => h.tag == "Infantry" || h.tag == "Tank")
+                            .ToList();
+
+
+                    // If the Player has less than 1.2 times the AI's units currently visible to the first unit in the AI's army
+                    // Also only attack when the AI has at least 5 units, so the player can't get rushed
+                    if ((float) playerUnitHitColliders.Count/armyUnits.Count < 1.3 && armyUnits.Count > 5)
                     {
-                        var playerAvatar = GameObject.Find("Avatar");
-                        unit.MoveCommand(playerAvatar.transform.position, true);
+                        var attackingUnits = allAttackUnits.Take(allAttackUnits.Count()/2);
+                        foreach (var unit in attackingUnits)
+                        {
+                            var playerAvatar = GameObject.Find("Avatar");
+                            if (playerAvatar != null)
+                                unit.MoveCommand(playerAvatar.transform.position, true);
+                        }
+                    }
+                    // If there are no enemy units nearby, form a ball
+                    else if (playerUnitHitColliders.Count == 0)
+                    {
+                        var attackingUnits = allAttackUnits.Take(allAttackUnits.Count()/2).ToList();
+                        foreach (var unit in attackingUnits.Skip(1))
+                        {
+                            unit.MoveCommand(attackingUnits.FirstOrDefault().transform.position);
+                        }
+                    }
+                    else
+                    {
+                        foreach (var unit in allAttackUnits)
+                        {
+                            unit.MoveCommand(LeaderAvatar.transform.position);
+                        }
                     }
                 }
-                else
-                {
-                    foreach (var unit in allAttackUnits)
-                    {
-                        unit.MoveCommand(LeaderAvatar.transform.position, false);
-                    }
-                }
-                
             }
+
             #endregion
         }
         #endregion
@@ -301,5 +328,10 @@ public class Army : MonoBehaviour
         }
 
         return returnVal;
+    }
+
+    public bool IsAvatarAlive()
+    {
+        return LeaderAvatar != null;
     }
 }

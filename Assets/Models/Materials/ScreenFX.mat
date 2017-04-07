@@ -72,7 +72,7 @@ Material:
     m_Floats:
     - first:
         name: _BeatTime
-      second: 0.11963299
+      second: 0.49715498
     - first:
         name: _BumpScale
       second: 1

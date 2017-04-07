@@ -19,7 +19,10 @@ public class Controller : MonoBehaviour
     Army EnemyArmy;
     private Vector2 MouseOver;
     private bool isSelecting;
-    public GameObject SelectionCirclePrefab;
+
+    private float score;
+    public GameObject ScoreTextBox;
+    public GameObject GameOverTextBox;
 
     public UIUtils.CommandType CurrentCommand;
 
@@ -37,6 +40,10 @@ public class Controller : MonoBehaviour
         EnemyArmy = gameObject.AddComponent<Army>();
         EnemyArmy.TeamNumber = 1;
 
+        GameOverTextBox.SetActive(false);
+
+        score = 0;
+
         UIUtils.SetUnloadButtonVisiblity(false);
         UIUtils.SetDeployButtonVisibility(false);
     }
@@ -44,6 +51,20 @@ public class Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Lose condition check
+        if (!playerArmy.IsAvatarAlive())
+        {
+            GameOverTextBox.GetComponent<Text>().text = "Game Over\n Final Score: " + (int) score;
+            GameOverTextBox.SetActive(true);
+        }
+        else
+        {
+            // Score Update
+            score += Time.deltaTime;
+            var scoreTextScript = ScoreTextBox.GetComponent<Text>();
+            scoreTextScript.text = ((int)score).ToString();
+        }
+
         #region Unit Selection
 
         var destroyedSelectedUnits = playerArmy.selectedUnits.Where(u => u == null).ToList();
