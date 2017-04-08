@@ -62,11 +62,10 @@ public class Army : MonoBehaviour
         if (TeamNumber != 0)
         {
             var newTransform = new GameObject().transform;
-            newTransform.position = new Vector3(8, 0, -8);
             AddUnit(avatarPrefab, newTransform, "EnemyAvatar");
 
             LeaderAvatar = GameObject.Find("EnemyAvatar");
-            LeaderAvatar.transform.position = new Vector3(9, 0, -9);
+            LeaderAvatar.transform.position = new Vector3(10, 0, -10);
 
             vehicleDeployScript = LeaderAvatar.GetComponent<VehicleDeploy>();
         }

@@ -65,6 +65,17 @@ public class Controller : MonoBehaviour
             scoreTextScript.text = ((int)score).ToString();
         }
 
+        // quick fix for spawning problem
+        if (score < 1)
+        {
+            var enemyAvatar = GameObject.Find("EnemyAvatar");
+            if (enemyAvatar != null)
+            {
+                if (enemyAvatar.transform.position != new Vector3(10, 0, -10))
+                    enemyAvatar.transform.position = new Vector3(10, 0, -10);
+            }
+        }
+
         #region Unit Selection
 
         var destroyedSelectedUnits = playerArmy.selectedUnits.Where(u => u == null).ToList();
